@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Letter.qml</file>
+        <file>Jingle.qml</file>
+        <file>AnimatedLetter.qml</file>
+        <file>MultipleChoiceQuestion.qml</file>
+    </qresource>
+</RCC>

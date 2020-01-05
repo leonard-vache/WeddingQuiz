@@ -1,0 +1,1 @@
+ps -u | egrep  "WeddingQuiz" | sed -r s/"^[a-z]*[ ]+([0-9]+).*$/\1/g" | xargs kill -9
