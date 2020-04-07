@@ -1,4 +1,4 @@
-import QtQuick 2.9
+import QtQuick 2.14
 
 Item {
     id: container
@@ -15,7 +15,9 @@ Item {
         anchors.horizontalCenterOffset: 2
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: -Math.round(height/2)
-        width: Math.round(label.contentWidth * 0.74)
+        width: label.text == "W" || label.text == "D"
+               ? Math.round(label.contentWidth * 0.77)
+               : Math.round(label.contentWidth * 0.67)
         height: Math.round(label.contentHeight * 0.4)
     }
 

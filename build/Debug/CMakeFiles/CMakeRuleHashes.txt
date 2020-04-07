@@ -1,2 +1,0 @@
-# Hashes of file build rules.
-80ba7aa71057bd1876b2bb1b2bbd3f80 CMakeFiles/WeddingQuiz_autogen

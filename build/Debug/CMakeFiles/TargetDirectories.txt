@@ -1,4 +1,0 @@
-/home/leonard/Git_Project/WeddingQuiz/build/Debug/CMakeFiles/rebuild_cache.dir
-/home/leonard/Git_Project/WeddingQuiz/build/Debug/CMakeFiles/WeddingQuiz.dir
-/home/leonard/Git_Project/WeddingQuiz/build/Debug/CMakeFiles/edit_cache.dir
-/home/leonard/Git_Project/WeddingQuiz/build/Debug/CMakeFiles/WeddingQuiz_autogen.dir
