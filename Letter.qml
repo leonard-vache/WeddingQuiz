@@ -1,13 +1,21 @@
 import QtQuick 2.14
 
+//Rectangle {
+//    border.width: 1
+//    border.color: "green"
+//    color: "transparent"
 Item {
     id: container
 
     property real xScale: 1
     property real yScale: 1
+    property int xScaleOrigin: 0
+    property int yScaleOrigin: 0
     property alias text: label.text
     property color letterColor: "white"
     property color backgroundColor: "black"
+
+
 
     Rectangle {
         color: letterColor
@@ -15,7 +23,7 @@ Item {
         anchors.horizontalCenterOffset: 2
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: -Math.round(height/2)
-        width: label.text == "W" || label.text == "D"
+        width: label.text == "w"
                ? Math.round(label.contentWidth * 0.77)
                : Math.round(label.contentWidth * 0.67)
         height: Math.round(label.contentHeight * 0.4)
@@ -28,7 +36,7 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: Math.round(height/2) - 1
         width: Math.round(label.contentWidth * 0.67)
-        height: Math.round(label.contentHeight * 0.25)
+        height: Math.round(label.contentHeight * 0.26)
     }
 
     Text {
@@ -41,5 +49,5 @@ Item {
         verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
     }
 
-    transform: Scale { origin.x: Math.round(width/2); origin.y: height; xScale: container.xScale; yScale: container.yScale }
+    transform: Scale { origin.x: xScaleOrigin; origin.y: container.yScaleOrigin; xScale: container.xScale; yScale: container.yScale }
 }

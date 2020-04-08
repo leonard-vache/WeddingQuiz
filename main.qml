@@ -7,6 +7,8 @@ Window {
     width: 1920
     height: 1080
     title: qsTr("Wedding Quiz")
+    // Full screen
+    //flags: Qt.Window | Qt.FramelessWindowHint
 
 
     Jingle {
@@ -19,6 +21,8 @@ Window {
             onClicked: jingle.start()
         }
     }
+
+
 
 //    MultipleChoiceQuestion {
 //        width: window.width
