@@ -1,4 +1,5 @@
 import QtQuick 2.14
+import QtQuick.Controls 2.12
 import QtQuick.Window 2.2
 
 Window {
@@ -13,28 +14,63 @@ Window {
 
     Jingle {
         id: jingle
+        visible: false
         width: window.width
         height: window.height
-
-        MouseArea {
-            anchors.fill: jingle
-            onClicked: jingle.start()
-        }
+        onRunningChanged: if(running) visible = true
     }
 
 
+    MultipleChoiceQuestion {
+        id: mcq
+        visible: bMcq.checked && ! jingle.running
+        width: window.width
+        height: window.height
 
-//    MultipleChoiceQuestion {
-//        width: window.width
-//        height: window.height
+        heading:  qm.heading
+        suggestions: qm.suggestions
+        answer: qm.answer-1
+        reward: qm.reward
+    }
 
-//        questionText:  "What is the meaning of life ?"
-//        answersText: ["TAGADA", "To be or not to be that is the question", "Cogito ergo sum", "La réponse D"]
-//        responseIndex: 2
-//    }
+    Score {
+        id: score
+        visible: bScore.checked && ! jingle.running
+        anchors.fill: parent
+    }
 
-//    Score {
-//        anchors.fill: parent
-//    }
 
+    Column {
+        visible: ! jingle.running
+        width: 100
+        spacing: 4
+        Button {
+            id: bJingle
+            width: parent.width
+            height: width * 0.5
+            text: "Jingle"
+            onClicked: {jingle.reset(); jingle.start()}
+        }
+
+        Button {
+            id: bMcq
+            width: parent.width
+            height: width * 0.5
+            text: "MCQ"
+            checkable: true
+            onCheckedChanged: {
+                if(checked == false) mcq.reset()
+                else jingle.visible = false
+            }
+        }
+
+        Button {
+            id: bScore
+            width: parent.width
+            height: width * 0.5
+            text: "Score"
+            checkable: true
+            onCheckedChanged: if(checked == true) jingle.visible = false
+        }
+    }
 }

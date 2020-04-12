@@ -6,14 +6,15 @@ Rectangle {
     property int padding: Math.round(width * 0.05)
     property int letterWidth: Math.round((width - 2*padding) / 8)
     property int letterHeight: 2 * letterWidth
-    property bool weddingLettersVisible: false
-    property bool quizLettersVisible: false
+
     property int spacing: 10
 
     readonly property int wLetterIndex: 0
     readonly property int dLetterIndex: 2
     readonly property int qLetterIndex: 9
 
+    property bool weddingLettersVisible: false
+    property bool quizLettersVisible: false
     property bool startQuizArrivalAnimation: false
     property bool startFinalAnimation: false
 
@@ -22,8 +23,18 @@ Rectangle {
 
     property bool running: false
 
-
     color: "black"
+
+    function reset() {
+        startQuizArrivalAnimation = false
+        startFinalAnimation = false
+        weddingLettersVisible = false
+        quizLettersVisible = false
+        running = false
+        // Reset annimations
+        weddingLetters.reset()
+        quizLetters.reset()
+    }
 
     function start() {
         root.running = true
@@ -34,9 +45,20 @@ Rectangle {
 
     Repeater {
         id: weddingLetters
-
+        property int yOutOfWindow: - 4*letterHeight
         property int offsetX: Math.round(0.5 * (root.width - weddingLetters.count * letterWidth))
         property int offsetY: Math.round(0.5 * (root.height - 2 * letterHeight - root.spacing))
+
+        function reset() {
+            weddingLettersBorder.visible = false
+            for(var i = 0; i < count; ++i ) {
+                var letter = root.children[wLetterIndex + i]
+                letter.yScale = 1.0
+                letter.xScale = 1.0
+                letter.x = weddingLetters.offsetX + i * letterWidth
+                letter.y= yOutOfWindow
+            }
+        }
 
         model:["w","e","d","d","i","n","g"]
 
@@ -54,7 +76,7 @@ Rectangle {
             width: letterWidth
             height: letterHeight
             x: weddingLetters.offsetX + index * letterWidth
-            y: - 4*height
+            y: weddingLetters.yOutOfWindow
 
 
             //////////////////////////////////////////////////////////////////////////////////////
@@ -111,6 +133,17 @@ Rectangle {
 
         property int offsetX: Math.round(0.5 * (root.width - quizLetters.count * letterWidth))
         property int offsetY: weddingLetters.offsetY + letterHeight + root.spacing
+
+
+        function reset() {
+            for(var i = 0; i < count; ++i ) {
+                var letter = root.children[qLetterIndex + i]
+                letter.yScale = 1.0
+                letter.xScale = 1.0
+                letter.x = quizLetters.offsetX + letterWidth * i
+                letter.y = letterHeight
+            }
+        }
 
         model:["q","u","i","z"]
 

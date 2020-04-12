@@ -6,5 +6,7 @@
         <file>AnimatedLetter.qml</file>
         <file>MultipleChoiceQuestion.qml</file>
         <file>Score.qml</file>
+        <file>PageController.qml</file>
+        <file>questions.json</file>
     </qresource>
 </RCC>

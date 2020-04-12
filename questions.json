@@ -1,0 +1,53 @@
+
+
+{
+	"MultipleChoicesQuestions": {
+		"reward": 2,
+		"QuestionsList": [
+		{
+			"id": 1,
+			"team": "Romain",
+			"heading": "A 3 ans, Camille avait déjà:",
+			"suggestions": ["Mangé les poussières d’un paillasson",
+							"Redécoré les murs du salon en dessinant dessus",
+							"Essayé de faire rebondir un oeuf cru sur le frigo",
+							"Obtenu son diplôme d'orthophoniste"],
+			"answer": 1
+		},
+		
+		{
+			"id": 2,
+			"team": "Romain",
+			"heading": "Camille a fait subir à son frère:",	
+			"suggestions": ["Envoyé une peluche courgette pour l’empêcher de ronfler",
+							"Fait une coupe au bol avec des ciseaux",
+							"Empêcher de jouer avec ses barbies",
+							"déguisé en femme"],
+			"answer": 2
+		},
+		
+		{
+			"id": 3,
+			"team": "Romain",
+			"heading": "Camille n'a jamais:",	
+			"suggestions": ["Craché son petit filou au visage de sa belle-mère en rigolant à table",
+							"Mis de la mousse à raser dans les chaussons de son père ",
+							"Déguisé le chat en bébé et baladé en landeau",
+							"********"],
+			"answer": 2
+		},
+		
+		{
+			"id": 4,
+			"team": "Romain",
+			"heading": "Que vient-il ensuite ?",
+			"suggestions": ["@@@@@@@@@@@@",
+							"&&&&&&&&&&&&",
+							"############",
+							"********"],
+			"answer": 4,
+			"content": "C:/Users/vache/Videos/Captures/jingleWQ.mp4"
+		}
+		]
+	}
+}

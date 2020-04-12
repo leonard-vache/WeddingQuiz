@@ -1,22 +1,52 @@
 import QtQuick 2.14
+import QtQuick.Controls 2.12
 
 Item {
     id: container
     property string fontName: "HooliganJF"
     property int fontSize: 45
 
-    property alias questionText: question.text
-    property variant answersText: ["First", "Second", "Third", "Forth"]
-    property int responseIndex: 0
+    property alias heading: question.text
+    property variant suggestions: ["First", "Second", "Third", "Forth"]
+    property int answer: 0
+    property int reward: 0
 
     property int displayedAnswer: 0
     property bool showResponse: false
 
+    function reset() {
+        displayedAnswer = 0
+    }
+
+    signal scoring( int value )
+
     MouseArea {
         anchors.fill: container
-        onClicked: displayedAnswer = displayedAnswer + 1
-        onDoubleClicked: showResponse = true
+        onClicked: displayedAnswer = Math.min(displayedAnswer + 1, suggestions.length)
     }
+
+    Button {
+        id: bAnswer
+        visible: displayedAnswer == suggestions.length
+        anchors.top: parent.top
+        anchors.right: parent.right
+        width: 100
+        height: 50
+        text:"ANSWER"
+        onClicked: showResponse = true
+    }
+
+    Button {
+        visible: displayedAnswer == suggestions.length
+        anchors.top: bAnswer.bottom
+        anchors.right: parent.right
+        width: 100
+        height: 50
+        text:"SCORING"
+        onClicked: scoring(reward)
+    }
+
+
 
     Text {
         id: question
@@ -45,7 +75,7 @@ Item {
 
             Row {
                 visible: displayedAnswer > index
-                opacity: showResponse && responseIndex !== index ? 0.5 : 1
+                opacity: showResponse && answer !== index ? 0.5 : 1
                 anchors.leftMargin : 10
                 height: Math.round(answersArea.height / 4)
 
@@ -57,9 +87,8 @@ Item {
                 }
 
                 Text {
-                    id: answer
                     anchors.verticalCenter: parent.verticalCenter
-                    text: answersText[index]
+                    text: suggestions[index]
                     font.family: fontName
                     font.pixelSize: fontSize
                 }
