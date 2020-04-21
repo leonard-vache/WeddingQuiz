@@ -2,12 +2,13 @@
 #include "multiple_choices_question.h"
 
 #include <QJsonArray>
-#include <QtDebug>
 
-MultipleChoicesQuestion::MultipleChoicesQuestion(QObject *parent) : Question(parent)
+MultipleChoicesQuestion::MultipleChoicesQuestion(QObject *parent) : Question(parent),
+    m_answer(3)
 {
-
 }
+
+MultipleChoicesQuestion::~MultipleChoicesQuestion() {}
 
 MultipleChoicesQuestion::MultipleChoicesQuestion(const MultipleChoicesQuestion &copy)
 {

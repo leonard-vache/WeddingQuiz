@@ -1,13 +1,10 @@
 #ifndef QUESTION_H
 #define QUESTION_H
 
+#include "common.h"
 #include <QString>
 #include <QObject>
 #include <QJsonObject>
-
-enum QuestionTypes {
-    MultipleChoices, Quickness
-};
 
 
 class Question : public QObject

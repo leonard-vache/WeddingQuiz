@@ -4,9 +4,11 @@
         <file>Letter.qml</file>
         <file>Jingle.qml</file>
         <file>AnimatedLetter.qml</file>
-        <file>MultipleChoiceQuestion.qml</file>
+        <file>MultipleChoicesQuestionItem.qml</file>
         <file>Score.qml</file>
         <file>PageController.qml</file>
         <file>questions.json</file>
+        <file>VideoContent.qml</file>
+        <file>jingleWQ.mp4</file>
     </qresource>
 </RCC>

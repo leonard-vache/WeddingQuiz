@@ -6,11 +6,10 @@
 #include <QMap>
 #include <QJsonObject>
 
-#include "question.h"
+#include "common.h"
 
-//class QuestionTypes;
-//class Question;
-
+class Question;
+class QuestionsList;
 
 class QuestionsManager
 {
@@ -26,9 +25,11 @@ public:
     bool loadConfigurationFile(const QString &qrcFilePath);
     void readConfiguration(const QJsonObject &json);
 
-    Question* getQuestion(int id) const;
+//    Question* getQuestion(int id) const;
 
     int getReward(QuestionTypes type) const;
+
+    QuestionsList* getQuestionList();
 
 
 private:
@@ -36,8 +37,10 @@ private:
 
 
 private:
-    QMap<QuestionTypes, int> m_rewards;
-    QVector<Question*> m_questionsList;
+//    QMap<QuestionTypes, int> m_rewards;
+//    QVector<Question*> m_questionsList;
+    QuestionsList *m_questionsList;
+
 };
 
 

@@ -1,5 +1,6 @@
 #ifndef MULTIPLECHOICESQUESTION_H
 #define MULTIPLECHOICESQUESTION_H
+
 #include "question.h"
 
 #include <QObject>
@@ -8,6 +9,7 @@
 
 #include <QJsonObject>
 
+class Question;
 
 class MultipleChoicesQuestion : public Question
 {
@@ -18,6 +20,7 @@ class MultipleChoicesQuestion : public Question
 
 public:
     MultipleChoicesQuestion(QObject *parent = nullptr);
+    ~MultipleChoicesQuestion();
     MultipleChoicesQuestion(const MultipleChoicesQuestion &copy);
     MultipleChoicesQuestion& operator=(const MultipleChoicesQuestion &copy);
 
@@ -29,7 +32,7 @@ public:
     const QVector<QString>& suggestions() const { return m_suggestions; }
 
     // Setters
-    void setAnswer(int answer) { m_answer = answer; emit idChanged(); }
+    void setAnswer(int answer) { m_answer = answer; emit answerChanged(); }
     void setContent(const QString& content) { m_content = content; emit contentChanged(); }
     void setSuggestions(const QVector<QString>& suggestions) { m_suggestions = suggestions; emit suggestionsChanged(); }
 

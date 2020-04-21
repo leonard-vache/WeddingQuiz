@@ -16,7 +16,6 @@ Item {
     property color backgroundColor: "black"
 
 
-
     Rectangle {
         color: letterColor
         anchors.horizontalCenter: parent.horizontalCenter

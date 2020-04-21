@@ -1,6 +1,9 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.2
+import QtMultimedia 5.14
+import WeddingQuiz 1.0
+
 
 Window {
     id: window
@@ -21,16 +24,19 @@ Window {
     }
 
 
-    MultipleChoiceQuestion {
+    property MultipleChoicesQuestionObject qModel: questions.mcq
+    MultipleChoicesQuestionItem {
         id: mcq
         visible: bMcq.checked && ! jingle.running
         width: window.width
         height: window.height
 
-        heading:  qm.heading
-        suggestions: qm.suggestions
-        answer: qm.answer-1
-        reward: qm.reward
+        heading:  qModel.heading
+        suggestions: qModel.suggestions
+        answer: qModel.answer-1
+        content: qModel.content
+
+        onNext: { mcq.reset(); questions.next() }
     }
 
     Score {
@@ -38,6 +44,7 @@ Window {
         visible: bScore.checked && ! jingle.running
         anchors.fill: parent
     }
+
 
 
     Column {
@@ -72,5 +79,6 @@ Window {
             checkable: true
             onCheckedChanged: if(checked == true) jingle.visible = false
         }
+
     }
 }
