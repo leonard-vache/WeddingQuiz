@@ -8,4 +8,18 @@ enum QuestionTypes {
 };
 
 
+enum KeyEvents {
+    E_KEY_NEXT,
+    E_KEY_RETURN,
+    E_KEY_ENTER,
+    E_KEY_EDIT
+};
+
+
+enum ScoreState {
+    E_STATE_DISPLAY,
+    E_STATE_EDIT
+};
+
+
 #endif // COMMON_H

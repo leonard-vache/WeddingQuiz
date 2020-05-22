@@ -17,6 +17,8 @@ find_package(Qt5 COMPONENTS Core Quick Multimedia REQUIRED)
 add_executable(${PROJECT_NAME}
                 main.cpp
                 common.h
+                configurator.cpp
+                configurator.h
                 question.cpp
                 question.h
                 questions_manager.cpp
@@ -25,6 +27,18 @@ add_executable(${PROJECT_NAME}
                 multiple_choices_question.h
                 questions_list.cpp
                 questions_list.h
+                remote_controller.cpp
+                remote_controller.h
+                page_controller.cpp
+                page_controller.h
+                score_page.cpp
+                score_page.h
+                page_interface.cpp
+                page_interface.h
+                jingle_page.cpp
+                jingle_page.h
+                title_page.cpp
+                title_page.h
                 qml.qrc )
 
 target_compile_definitions( ${PROJECT_NAME}

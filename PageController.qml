@@ -3,16 +3,16 @@ import QtQuick 2.14
 Item {
     id: control
 
-    signal next()
-
-    MouseArea {
+    ScorePage {
+        visible: scorePage.showed
         anchors.fill: parent
-        onClicked: {
-
-            control.next()
-        }
-
     }
 
+    Jingle {
+        visible: jinglePage.showed
+        width: window.width
+        height: window.height
+        onRunningChanged: if(running) visible = true
+    }
 
 }

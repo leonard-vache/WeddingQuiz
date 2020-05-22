@@ -2,6 +2,7 @@ import QtQuick 2.14
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.2
 import QtMultimedia 5.14
+
 import WeddingQuiz 1.0
 
 
@@ -14,17 +15,24 @@ Window {
     // Full screen
     //flags: Qt.Window | Qt.FramelessWindowHint
 
-
-    Jingle {
-        id: jingle
-        visible: false
-        width: window.width
-        height: window.height
-        onRunningChanged: if(running) visible = true
+    Item {
+        anchors.fill: parent
+        focus:true
+        Keys.onPressed: remote.keyChanged(event.key)
     }
 
 
+
+
+    PageController {
+        anchors.fill: parent
+    }
+
+
+
+
     property MultipleChoicesQuestionObject qModel: questions.mcq
+
     MultipleChoicesQuestionItem {
         id: mcq
         visible: bMcq.checked && ! jingle.running
@@ -39,25 +47,21 @@ Window {
         onNext: { mcq.reset(); questions.next() }
     }
 
-    Score {
-        id: score
-        visible: bScore.checked && ! jingle.running
-        anchors.fill: parent
-    }
+
 
 
 
     Column {
-        visible: ! jingle.running
+        visible: true
         width: 100
         spacing: 4
-        Button {
-            id: bJingle
-            width: parent.width
-            height: width * 0.5
-            text: "Jingle"
-            onClicked: {jingle.reset(); jingle.start()}
-        }
+//        Button {
+//            id: bJingle
+//            width: parent.width
+//            height: width * 0.5
+//            text: "Jingle"
+//            onClicked: {jingle.reset(); jingle.start()}
+//        }
 
         Button {
             id: bMcq
@@ -67,18 +71,17 @@ Window {
             checkable: true
             onCheckedChanged: {
                 if(checked == false) mcq.reset()
-                else jingle.visible = false
+//                else jingle.visible = false
             }
         }
 
-        Button {
-            id: bScore
-            width: parent.width
-            height: width * 0.5
-            text: "Score"
-            checkable: true
-            onCheckedChanged: if(checked == true) jingle.visible = false
-        }
 
     }
+
+    Item {
+        anchors.fill: parent
+        focus:true
+        Keys.onPressed: remote.keyChanged(event.key)
+    }
+
 }

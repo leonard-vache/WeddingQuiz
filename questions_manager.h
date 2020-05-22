@@ -22,7 +22,6 @@ public:
     QuestionsManager(const QuestionsManager &copy);
     QuestionsManager& operator=(const QuestionsManager &copy);
 
-    bool loadConfigurationFile(const QString &qrcFilePath);
     void readConfiguration(const QJsonObject &json);
 
 //    Question* getQuestion(int id) const;
@@ -30,6 +29,7 @@ public:
     int getReward(QuestionTypes type) const;
 
     QuestionsList* getQuestionList();
+
 
 
 private:

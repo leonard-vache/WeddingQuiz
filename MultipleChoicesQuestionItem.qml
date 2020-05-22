@@ -22,10 +22,10 @@ Item {
     signal scoring( int value )
     signal next()
 
-    MouseArea {
-        anchors.fill: container
-        onClicked: displayedAnswer = Math.min(displayedAnswer + 1, suggestions.length)
-    }
+//    MouseArea {
+//        anchors.fill: container
+//        onClicked: displayedAnswer = Math.min(displayedAnswer + 1, suggestions.length)
+//    }
 
     Button {
         id: bAnswer

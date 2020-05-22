@@ -7,6 +7,7 @@
 #include <QVector>
 #include <QQmlListProperty>
 #include <QMap>
+#include <QEvent>
 
 class Question;
 class MultipleChoicesQuestion;
@@ -33,8 +34,6 @@ public:
 
     // Getters
     MultipleChoicesQuestion* mcq();
-
-
 
 private:
     QMap<QuestionTypes, int> m_rewards;

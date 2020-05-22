@@ -6,16 +6,16 @@ Video {
     id: video
     source: ""
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            video.play()
-        }
-    }
+//    MouseArea {
+//        anchors.fill: parent
+//        onClicked: {
+//            video.play()
+//        }
+//    }
 
-    focus: true
-    Keys.onSpacePressed: video.playbackState == MediaPlayer.PlayingState ? video.pause() : video.play()
-    Keys.onLeftPressed: video.seek(video.position - 5000)
-    Keys.onRightPressed: video.seek(video.position + 5000)
+//    focus: true
+//    Keys.onSpacePressed: video.playbackState == MediaPlayer.PlayingState ? video.pause() : video.play()
+//    Keys.onLeftPressed: video.seek(video.position - 5000)
+//    Keys.onRightPressed: video.seek(video.position + 5000)
 }
 

@@ -7,8 +7,9 @@
         <file>MultipleChoicesQuestionItem.qml</file>
         <file>Score.qml</file>
         <file>PageController.qml</file>
-        <file>questions.json</file>
         <file>VideoContent.qml</file>
         <file>jingleWQ.mp4</file>
+        <file>wq_configuration.json</file>
+        <file>ScorePage.qml</file>
     </qresource>
 </RCC>

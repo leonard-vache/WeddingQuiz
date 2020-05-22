@@ -60,29 +60,6 @@ QuestionsList* QuestionsManager::getQuestionList()
 //}
 
 
-bool QuestionsManager::loadConfigurationFile(const QString &qrcFilePath)
-{
-    QFile config_file(":/" + qrcFilePath);
-    if (!config_file.open(QIODevice::ReadOnly))
-    {
-        qCritical() << "Error: Couldn't open JSON file:" << "qrc:/" + qrcFilePath;
-        return false;
-    }
-
-    QByteArray config_data = config_file.readAll();
-    QJsonParseError error;
-    QJsonDocument doc = QJsonDocument::fromJson(config_data, &error);
-    if(doc.isNull())
-    {
-        qCritical() << "Error: Invalid JSON document : " << error.errorString();  // https://jsonformatter.curiousconcept.com/
-        return false;
-    }
-
-    readConfiguration(doc.object());
-
-    return true;
-}
-
 
 void QuestionsManager::readConfiguration(const QJsonObject &json)
 {
