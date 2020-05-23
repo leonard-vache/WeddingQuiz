@@ -7,22 +7,22 @@
 
 
 PageController::PageController(QObject *parent) : QObject(parent),
-    m_currentPage(E_PAGE_TITLE)
+    m_currentPage(E_PAGE_JINGLE)
 {
-
 }
 
 
-void PageController::setupPages(TitlePage *tp, JinglePage *jp, ScorePage *sp)
+void PageController::setupPages(JinglePage *jp, ScorePage *sp)
 {
-    m_pTitle = tp;
     m_pJingle = jp;
     m_pScore = sp;
 
     // Build Map
-    m_pages[E_PAGE_TITLE] = m_pTitle;
     m_pages[E_PAGE_SCORE] = m_pScore;
     m_pages[E_PAGE_JINGLE] = m_pJingle;
+
+    // Display first page
+    m_pages[m_currentPage]->setShowed(true);
 }
 
 
@@ -37,10 +37,6 @@ void PageController::updatePage()
 {
     switch(m_currentPage)
     {
-    case E_PAGE_TITLE:
-        updateTitle();
-        break;
-
     case E_PAGE_SCORE:
         updateScore();
         break;
@@ -63,16 +59,6 @@ void PageController::changePage(WQPage page)
     // Sow new page
     m_currentPage = page;
     m_pages[m_currentPage]->setShowed(true);
-}
-
-
-void PageController::updateTitle()
-{
-    if(m_keyEvent == E_KEY_EDIT)
-        changePage(E_PAGE_SCORE);
-
-    if(m_keyEvent == E_KEY_ENTER)
-        changePage(E_PAGE_JINGLE);
 }
 
 
@@ -108,8 +94,7 @@ void PageController::updateScore()
         }
 
     }
-
-    if ( E_STATE_DISPLAY == m_pScore->getState())
+    else if ( E_STATE_DISPLAY == m_pScore->getState())
     {
         if(m_keyEvent == E_KEY_EDIT)
             m_pScore->setState(E_STATE_EDIT);
@@ -131,11 +116,17 @@ void PageController::updateQuestion()
 
 void PageController::updateJingle()
 {
+
     if(m_pJingle->isRunning() == false)
     {
+        if(m_keyEvent == E_KEY_ENTER)
+            m_pJingle->start();
+
         if(m_keyEvent == E_KEY_EDIT)
             changePage(E_PAGE_SCORE);
 
+        if(m_keyEvent == E_KEY_NEXT)
+            changePage(E_PAGE_QUESTION);
     }
 
 }

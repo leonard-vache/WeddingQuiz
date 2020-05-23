@@ -12,21 +12,19 @@ MultipleChoicesQuestion::~MultipleChoicesQuestion() {}
 
 MultipleChoicesQuestion::MultipleChoicesQuestion(const MultipleChoicesQuestion &copy)
 {
-    m_id = copy.m_id;
-    m_team = copy.m_team;
     m_heading = copy.m_heading;
-    m_answer = copy.m_answer;
     m_content = copy.m_content;
+    m_team = copy.m_team;
+    m_answer = copy.m_answer;
     m_suggestions = copy.m_suggestions;
 }
 
 MultipleChoicesQuestion& MultipleChoicesQuestion::operator=(const MultipleChoicesQuestion &copy)
 {
-    m_id = copy.m_id;
-    m_team = copy.m_team;
     m_heading = copy.m_heading;
-    m_answer = copy.m_answer;
     m_content = copy.m_content;
+    m_team = copy.m_team;
+    m_answer = copy.m_answer;
     m_suggestions = copy.m_suggestions;
     return *this;
 }
@@ -38,6 +36,9 @@ void MultipleChoicesQuestion::readConfiguration(const QJsonObject &json)
 
     if(json.contains("answer"))
         setAnswer(json["answer"].toInt());
+
+    if(json.contains("team"))
+        setTeam(json["team"].toString());
 
     if(json.contains("suggestions") && json["suggestions"].isArray())
     {
@@ -54,7 +55,7 @@ void MultipleChoicesQuestion::readConfiguration(const QJsonObject &json)
         setContent(json["content"].toString());
 
 
-    qDebug().nospace() << "id=" << id() << " heading=" << m_heading;
+    qDebug().nospace() << " heading=" << m_heading;
 }
 
 

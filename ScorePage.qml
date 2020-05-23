@@ -1,15 +1,23 @@
-import QtQuick 2.0
+import QtQuick 2.14
 
-Item {
+Rectangle {
     id: container
+    color: "black"
+
     Row {
-        spacing: 0
+        id: row
+        anchors.fill: parent
+        spacing: 10
+        padding: 5
+
         Repeater {
             model: scorePage.teams
             Score {
-                width:container.width * 0.5
-                height:container.height
+                width: 0.5*container.width - 20
+                height: container.height
+                // Model's attributes
                 value: score
+                team: name
 
             }
         }

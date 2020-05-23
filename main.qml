@@ -22,8 +22,6 @@ Window {
     }
 
 
-
-
     PageController {
         anchors.fill: parent
     }
@@ -35,7 +33,7 @@ Window {
 
     MultipleChoicesQuestionItem {
         id: mcq
-        visible: bMcq.checked && ! jingle.running
+        visible: true
         width: window.width
         height: window.height
 
@@ -43,45 +41,6 @@ Window {
         suggestions: qModel.suggestions
         answer: qModel.answer-1
         content: qModel.content
-
-        onNext: { mcq.reset(); questions.next() }
-    }
-
-
-
-
-
-    Column {
-        visible: true
-        width: 100
-        spacing: 4
-//        Button {
-//            id: bJingle
-//            width: parent.width
-//            height: width * 0.5
-//            text: "Jingle"
-//            onClicked: {jingle.reset(); jingle.start()}
-//        }
-
-        Button {
-            id: bMcq
-            width: parent.width
-            height: width * 0.5
-            text: "MCQ"
-            checkable: true
-            onCheckedChanged: {
-                if(checked == false) mcq.reset()
-//                else jingle.visible = false
-            }
-        }
-
-
-    }
-
-    Item {
-        anchors.fill: parent
-        focus:true
-        Keys.onPressed: remote.keyChanged(event.key)
     }
 
 }

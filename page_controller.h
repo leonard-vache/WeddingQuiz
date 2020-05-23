@@ -12,7 +12,6 @@ class JinglePage;
 
 
 enum WQPage {
-    E_PAGE_TITLE,
     E_PAGE_JINGLE,
     E_PAGE_SCORE,
     E_PAGE_QUESTION,
@@ -24,7 +23,7 @@ class PageController: public QObject
 public:
     explicit PageController(QObject *parent = nullptr);
 
-    void setupPages(TitlePage *tp, JinglePage *jp, ScorePage *sp);
+    void setupPages(JinglePage *jp, ScorePage *sp);
     void updatePage();
 
     // Remote Controller callback
@@ -48,7 +47,6 @@ private:
     QMap<WQPage,PageInterface*> m_pages;
     ScorePage *m_pScore;
     JinglePage *m_pJingle;
-    TitlePage *m_pTitle;
 
 };
 

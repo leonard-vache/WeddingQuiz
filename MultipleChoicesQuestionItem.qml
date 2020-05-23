@@ -19,57 +19,11 @@ Item {
         displayedAnswer = 0
     }
 
-    signal scoring( int value )
-    signal next()
 
 //    MouseArea {
 //        anchors.fill: container
 //        onClicked: displayedAnswer = Math.min(displayedAnswer + 1, suggestions.length)
 //    }
-
-    Button {
-        id: bAnswer
-        visible: displayedAnswer == suggestions.length
-        anchors.top: parent.top
-        anchors.right: parent.right
-        width: 100
-        height: 50
-        text:"ANSWER"
-        onClicked: showResponse = true
-    }
-
-    Button {
-        id: bScoring
-        visible: displayedAnswer == suggestions.length
-        anchors.top: bAnswer.bottom
-        anchors.right: parent.right
-        width: 100
-        height: 50
-        text:"SCORING"
-        onClicked: scoring(reward)
-    }
-
-    Button {
-        id: bNext
-        anchors.top: bScoring.bottom
-        anchors.right: parent.right
-        width: 100
-        height: 50
-        text:"NEXT"
-        onClicked: next()
-    }
-
-
-    Button {
-        visible: content != ""
-        anchors.top: bNext.bottom
-        anchors.right: parent.right
-        width: 100
-        height: 50
-        text:"CONTENT"
-        checkable: true
-        onCheckedChanged: mediaContent.visible = checked
-    }
 
 
     Text {
@@ -127,10 +81,10 @@ Item {
 
     VideoContent {
         id: mediaContent
+        visible: false
         anchors.centerIn: parent
         width: 800
         height: 600
-        visible: false
         enabled: content != ""
         source: content
     }

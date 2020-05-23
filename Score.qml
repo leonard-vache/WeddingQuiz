@@ -2,9 +2,9 @@ import QtQuick 2.14
 
 Rectangle {
     color: 'black'
-    property int value: 16 // scorePage.getScore("Romain")
+    property int value: 0
     property int scoreHeight: Math.round(height * 0.4)
-    property string team: 'yellow'
+    property string team: 'Camille'
 
     onValueChanged: print("value", value)
 
@@ -15,8 +15,8 @@ Rectangle {
         anchors.right: parent.right
         anchors.top: parent.top
         text: value % 10
-        letterColor: team == 'red' ? "#fdd4d8" : "#f6fbdb"
-        backgroundColor: team == 'red' ? "#bf3220" : "#d9ae14"
+        letterColor: team == 'Camille' ? "#fdd4d8" : "#f6fbdb"
+        backgroundColor: team == 'Camille' ? "#bf3220" : "#d9ae14"
     }
 
     Letter {
@@ -25,8 +25,8 @@ Rectangle {
         anchors.top: parent.top
         anchors.right: unit.left
         text: Math.floor(value * 0.1)
-        letterColor: team == 'red' ? "#fdd4d8" : "#f6fbdb"
-        backgroundColor: team == 'red' ? "#bf3220" : "#d9ae14"
+        letterColor: team == 'Camille' ? "#fdd4d8" : "#f6fbdb"
+        backgroundColor: team == 'Camille' ? "#bf3220" : "#d9ae14"
     }
 
 

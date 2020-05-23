@@ -35,13 +35,12 @@ int main(int argc, char *argv[])
 
 
     /* Pages */
-    TitlePage titlePage;
     JinglePage jinglePage;
     ScorePage scorePage;
     QuestionsManager questionManager;
 
     PageController pageController;
-    pageController.setupPages(&titlePage, &jinglePage, &scorePage);
+    pageController.setupPages(&jinglePage, &scorePage);
 
 
     /* Load Configuration Sections */
@@ -73,7 +72,6 @@ int main(int argc, char *argv[])
 //    qInfo() << "supported codec" << QMediaRecorder::supportedVideoCodecs()
     engine.rootContext()->setContextProperty("questions", questionManager.getQuestionList());
     engine.rootContext()->setContextProperty("remote", &remoteController);
-    engine.rootContext()->setContextProperty("scorePage", &titlePage);
     engine.rootContext()->setContextProperty("scorePage", &scorePage);
     engine.rootContext()->setContextProperty("jinglePage", &jinglePage);
 

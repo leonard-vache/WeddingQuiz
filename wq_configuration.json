@@ -27,7 +27,6 @@
 			"reward": 2,
 			"QuestionsList": [
 			{
-				"id": 1,
 				"team": "Romain",
 				"heading": "A 3 ans, Camille avait déjà:",
 				"suggestions": ["Mangé les poussières d’un paillasson",
@@ -38,7 +37,6 @@
 			},
 			
 			{
-				"id": 2,
 				"team": "Romain",
 				"heading": "Camille a fait subir à son frère:",	
 				"suggestions": ["Envoyé une peluche courgette pour l’empêcher de ronfler",
@@ -49,7 +47,6 @@
 			},
 			
 			{
-				"id": 3,
 				"team": "Romain",
 				"heading": "Camille n'a jamais:",	
 				"suggestions": ["Craché son petit filou au visage de sa belle-mère en rigolant à table",
@@ -60,7 +57,6 @@
 			},
 			
 			{
-				"id": 4,
 				"team": "Romain",
 				"heading": "Que vient-il ensuite ?",
 				"suggestions": ["@@@@@@@@@@@@",
@@ -70,6 +66,21 @@
 				"answer": 4,
 				"content": "C:/Users/vache/Videos/Captures/jingleWQ.mp4"
 			}
+			]
+		},
+		
+		"QuickQuestions": {
+			"title": "YES or NO",
+			"reward": 3,
+			"QuestionsList":  [
+			{
+				"heading": "TODO ?"
+			},
+			
+			{
+				"heading": "TODO 2 ?"
+			}
+			
 			]
 		}
 	}
