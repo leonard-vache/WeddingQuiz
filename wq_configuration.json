@@ -21,7 +21,7 @@
 		]
 	},
 
-	"QuestionsManager": {
+	"QuestionsPage": {
 	
 		"MultipleChoicesQuestions": {
 			"reward": 2,

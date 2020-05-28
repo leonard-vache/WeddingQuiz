@@ -14,9 +14,16 @@ Item {
     Jingle {
         id: jingle
         visible: jinglePage.showed
-        width: window.width
+        anchors.fill: parent
+        width: control.width
         height: window.height
         onRunningChanged: if(running == false) jinglePage.run = false
+    }
+
+    QuestionsPage {
+        id: questions
+        visible: questionsPage.showed
+        anchors.fill: parent
     }
 
 }

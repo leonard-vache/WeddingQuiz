@@ -11,5 +11,7 @@
         <file>jingleWQ.mp4</file>
         <file>wq_configuration.json</file>
         <file>ScorePage.qml</file>
+        <file>QuestionsPage.qml</file>
+        <file>QuickQuestionItem.qml</file>
     </qresource>
 </RCC>

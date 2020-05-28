@@ -4,19 +4,19 @@
 #include <QVariantList>
 #include <QVariantMap>
 
-TeamObject::TeamObject(QObject *parent): QObject(parent),
+Team::Team(QObject *parent): QObject(parent),
     m_score(0)
 {
 }
 
-TeamObject::TeamObject(const TeamObject &copy)
+Team::Team(const Team &copy)
 {
    m_name = copy.m_name;
    m_key = copy.m_key;
    m_score = copy.m_score;
 }
 
-TeamObject& TeamObject::operator=(const TeamObject &copy)
+Team& Team::operator=(const Team &copy)
 {
     m_name = copy.m_name;
     m_key = copy.m_key;
@@ -64,7 +64,7 @@ void ScorePage::readConfiguration(const QJsonObject &json)
 
 void ScorePage::addTeam(const QString& name, KeyEvents key)
 {
-    TeamObject team;
+    Team team;
     team.setName(name);
     team.setKey(key);
     m_teams.append(team);
@@ -98,7 +98,7 @@ void ScorePage::increaseCurrentTeamScore(int delta)
 
 
 
-QQmlListProperty<TeamObject> ScorePage::teams()
+QQmlListProperty<Team> ScorePage::teams()
 {
     return {this, this,
              &ScorePage::addTeam,
@@ -108,19 +108,19 @@ QQmlListProperty<TeamObject> ScorePage::teams()
 }
 
 
-void ScorePage::addTeam(QQmlListProperty<TeamObject>* list, TeamObject* p) {
+void ScorePage::addTeam(QQmlListProperty<Team>* list, Team* p) {
     reinterpret_cast< ScorePage* >(list->data)->addTeam(p->name(), p->getKey());
 }
 
-void ScorePage::clearTeams(QQmlListProperty<TeamObject>* list) {
+void ScorePage::clearTeams(QQmlListProperty<Team>* list) {
     reinterpret_cast< ScorePage* >(list->data)->clearTeams();
 }
 
-TeamObject* ScorePage::team(QQmlListProperty<TeamObject>* list, int i) {
+Team* ScorePage::team(QQmlListProperty<Team>* list, int i) {
     return reinterpret_cast< ScorePage* >(list->data)->team(i);
 }
 
-int ScorePage::teamCount(QQmlListProperty<TeamObject>* list) {
+int ScorePage::teamCount(QQmlListProperty<Team>* list) {
     return reinterpret_cast< ScorePage* >(list->data)->teamCount();
 }
 
@@ -129,7 +129,7 @@ int ScorePage::teamCount(QQmlListProperty<TeamObject>* list) {
 //{
 //    QVariantList itemsList;
 
-//    for(const TeamObject &p : m_teams)
+//    for(const Team &p : m_teams)
 //    {
 //        QVariantMap itemMap;
 //        itemMap.insert("name", p.name());

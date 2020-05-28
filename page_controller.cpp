@@ -1,9 +1,8 @@
 #include "page_controller.h"
 
-#include "title_page.h"
-#include "score_page.h"
 #include "jingle_page.h"
-
+#include "score_page.h"
+#include "questions_page.h"
 
 
 PageController::PageController(QObject *parent) : QObject(parent),
@@ -12,14 +11,16 @@ PageController::PageController(QObject *parent) : QObject(parent),
 }
 
 
-void PageController::setupPages(JinglePage *jp, ScorePage *sp)
+void PageController::setupPages(JinglePage *jp, ScorePage *sp, QuestionsPage *qp)
 {
     m_pJingle = jp;
     m_pScore = sp;
+    m_pQuestion = qp;
 
     // Build Map
     m_pages[E_PAGE_SCORE] = m_pScore;
     m_pages[E_PAGE_JINGLE] = m_pJingle;
+    m_pages[E_PAGE_QUESTION] = m_pJingle;
 
     // Display first page
     m_pages[m_currentPage]->setShowed(true);
@@ -87,10 +88,11 @@ void PageController::updateScore()
         else
         {
             // (De/In)crease depending on question reward
+            int reward = m_pQuestion->getCurrentReward();
             if(m_keyEvent == E_KEY_NEXT)
-                m_pScore->increaseCurrentTeamScore(1);
+                m_pScore->increaseCurrentTeamScore(+reward);
             else if(m_keyEvent == E_KEY_RETURN)
-                m_pScore->increaseCurrentTeamScore(-1);
+                m_pScore->increaseCurrentTeamScore(-reward);
         }
 
     }
@@ -110,6 +112,9 @@ void PageController::updateQuestion()
 
     if(m_keyEvent == E_KEY_ENTER)
         changePage(E_PAGE_SCORE);
+
+    if(m_keyEvent == E_KEY_NEXT)
+        m_pQuestion->next();
 
 }
 

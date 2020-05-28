@@ -13,16 +13,16 @@
 
 
 
-class TeamObject: public QObject
+class Team: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString name READ name NOTIFY nameChanged);
     Q_PROPERTY(int score READ score NOTIFY scoreChanged);
 
 public:
-    explicit TeamObject(QObject *parent = nullptr);
-    TeamObject(const TeamObject &copy);
-    TeamObject& operator=(const TeamObject &copy);
+    explicit Team(QObject *parent = nullptr);
+    Team(const Team &copy);
+    Team& operator=(const Team &copy);
 
     const QString& name() const { return m_name; }
     void setName(const QString& name) { m_name = name; emit nameChanged(); }
@@ -63,7 +63,7 @@ signals:
 class ScorePage : public PageInterface
 {
     Q_OBJECT
-    Q_PROPERTY(QQmlListProperty<TeamObject> teams READ teams NOTIFY teamsChanged)
+    Q_PROPERTY(QQmlListProperty<Team> teams READ teams NOTIFY teamsChanged)
 //    Q_PROPERTY(QVariant teams READ teams NOTIFY teamsChanged)
 public:
     explicit ScorePage(QObject *parent = nullptr);
@@ -79,20 +79,20 @@ public:
     bool isTeamSelected() { return m_currentTeamIndex != -1; }
     void increaseCurrentTeamScore(int delta);
 
-    QQmlListProperty<TeamObject> teams();
+    QQmlListProperty<Team> teams();
     void addTeam(const QString& name, KeyEvents key);
 
     void clearTeams() { m_teams.clear(); }
-    TeamObject* team(int i) { return &(m_teams[i]); }
+    Team* team(int i) { return &(m_teams[i]); }
     int teamCount() const { return m_teams.count(); }
 
 
 
 private:
-    static void addTeam(QQmlListProperty<TeamObject>*, TeamObject*);
-    static int teamCount(QQmlListProperty<TeamObject>*);
-    static TeamObject* team(QQmlListProperty<TeamObject>*, int);
-    static void clearTeams(QQmlListProperty<TeamObject>*);
+    static void addTeam(QQmlListProperty<Team>*, Team*);
+    static int teamCount(QQmlListProperty<Team>*);
+    static Team* team(QQmlListProperty<Team>*, int);
+    static void clearTeams(QQmlListProperty<Team>*);
 
 
 
@@ -100,7 +100,7 @@ private:
     ScoreState m_state;
 
     int m_currentTeamIndex;
-    QVector<TeamObject> m_teams;
+    QVector<Team> m_teams;
 
 
 signals:

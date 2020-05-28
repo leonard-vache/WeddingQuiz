@@ -6,9 +6,9 @@
 #include <QMap>
 
 class PageInterface;
-class TitlePage;
-class ScorePage;
 class JinglePage;
+class ScorePage;
+class QuestionsPage;
 
 
 enum WQPage {
@@ -23,7 +23,7 @@ class PageController: public QObject
 public:
     explicit PageController(QObject *parent = nullptr);
 
-    void setupPages(JinglePage *jp, ScorePage *sp);
+    void setupPages(JinglePage *jp, ScorePage *sp, QuestionsPage* qp);
     void updatePage();
 
     // Remote Controller callback
@@ -45,8 +45,9 @@ private:
     WQPage m_currentPage;
 
     QMap<WQPage,PageInterface*> m_pages;
-    ScorePage *m_pScore;
     JinglePage *m_pJingle;
+    ScorePage *m_pScore;
+    QuestionsPage *m_pQuestion;
 
 };
 

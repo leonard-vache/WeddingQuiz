@@ -1,21 +1,22 @@
 #include <assert.h>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
+#include "common.h"
 #include "configurator.h"
 #include "multiple_choices_question.h"
-#include "questions_manager.h"
-#include "questions_list.h"
+#include "quick_question.h"
+
 #include "remote_controller.h"
 
-#include "score_page.h"
+
 #include "jingle_page.h"
-#include "title_page.h"
+#include "score_page.h"
+#include "questions_page.h"
 #include "page_controller.h"
 
-#include <QQmlContext>
-#include <QMediaPlayer>
-#include <QMediaPlaylist>
+
 
 
 int main(int argc, char *argv[])
@@ -26,7 +27,10 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     qmlRegisterType<MultipleChoicesQuestion>("WeddingQuiz", 1, 0, "MultipleChoicesQuestionObject");
-    qmlRegisterType<TeamObject>("WeddingQuiz", 1, 0, "TeamItem");
+    qmlRegisterType<QuickQuestion>("WeddingQuiz", 1, 0, "QuickQuestionObject");
+//    qmlRegisterType<QuestionTypes>("WeddingQuiz", 1, 0, "QuestionTypesObject");
+
+    qmlRegisterType<Team>("WeddingQuiz", 1, 0, "TeamObject");
 
 
     /* Create Object */
@@ -37,10 +41,10 @@ int main(int argc, char *argv[])
     /* Pages */
     JinglePage jinglePage;
     ScorePage scorePage;
-    QuestionsManager questionManager;
+    QuestionsPage questionsPage;
 
     PageController pageController;
-    pageController.setupPages(&jinglePage, &scorePage);
+    pageController.setupPages(&jinglePage, &scorePage, &questionsPage);
 
 
     /* Load Configuration Sections */
@@ -49,8 +53,8 @@ int main(int argc, char *argv[])
     assert( conf.isSection("RemoteController") );
     remoteController.readConfiguration(conf.getSection("RemoteController"));
 
-    assert( conf.isSection("QuestionsManager") );
-    questionManager.readConfiguration(conf.getSection("QuestionsManager"));
+    assert( conf.isSection("QuestionsPage") );
+    questionsPage.readConfiguration(conf.getSection("QuestionsPage"));
 
     assert( conf.isSection("ScorePage") );
     scorePage.readConfiguration(conf.getSection("ScorePage"));
@@ -70,10 +74,12 @@ int main(int argc, char *argv[])
 
 
 //    qInfo() << "supported codec" << QMediaRecorder::supportedVideoCodecs()
-    engine.rootContext()->setContextProperty("questions", questionManager.getQuestionList());
+//    engine.rootContext()->setContextProperty("questions", questionManager.getQuestionList());
     engine.rootContext()->setContextProperty("remote", &remoteController);
-    engine.rootContext()->setContextProperty("scorePage", &scorePage);
     engine.rootContext()->setContextProperty("jinglePage", &jinglePage);
+    engine.rootContext()->setContextProperty("scorePage", &scorePage);
+    engine.rootContext()->setContextProperty("questionsPage", &questionsPage);
+
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

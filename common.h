@@ -3,9 +3,10 @@
 
 #include <QtDebug>
 
-enum QuestionTypes {
-    MultipleChoices, Quickness
-};
+//enum QuestionTypes {
+//    E_MULTIPLE_CHOICE,
+//    E_QUICK
+//};
 
 
 enum KeyEvents {

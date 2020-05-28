@@ -21,12 +21,12 @@ add_executable(${PROJECT_NAME}
                 configurator.h
                 question.cpp
                 question.h
-                questions_manager.cpp
-                questions_manager.h
                 multiple_choices_question.cpp
                 multiple_choices_question.h
-                questions_list.cpp
-                questions_list.h
+                quick_question.cpp
+                quick_question.h
+                questions_page.cpp
+                questions_page.h
                 remote_controller.cpp
                 remote_controller.h
                 page_controller.cpp
@@ -37,8 +37,6 @@ add_executable(${PROJECT_NAME}
                 page_interface.h
                 jingle_page.cpp
                 jingle_page.h
-                title_page.cpp
-                title_page.h
                 qml.qrc )
 
 target_compile_definitions( ${PROJECT_NAME}

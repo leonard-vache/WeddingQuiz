@@ -3,13 +3,10 @@
 
 #include "question.h"
 
-#include <QObject>
 #include <QString>
 #include <QVector>
 
 #include <QJsonObject>
-
-class Question;
 
 
 class MultipleChoicesQuestion : public Question

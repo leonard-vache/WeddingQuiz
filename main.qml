@@ -26,21 +26,4 @@ Window {
         anchors.fill: parent
     }
 
-
-
-
-    property MultipleChoicesQuestionObject qModel: questions.mcq
-
-    MultipleChoicesQuestionItem {
-        id: mcq
-        visible: true
-        width: window.width
-        height: window.height
-
-        heading:  qModel.heading
-        suggestions: qModel.suggestions
-        answer: qModel.answer-1
-        content: qModel.content
-    }
-
 }
