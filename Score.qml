@@ -6,8 +6,6 @@ Rectangle {
     property int scoreHeight: Math.round(height * 0.4)
     property string team: 'Camille'
 
-    onValueChanged: print("value", value)
-
     Letter {
         id: unit
         width: Math.round(height * 0.5)

@@ -9,14 +9,14 @@ Item {
     property variant suggestions: ["First", "Second", "Third", "Forth"]
     property int answer: 0
     property int reward: 0
-    property string content: ""
+    property string content: "" 
 
-    property int displayedAnswer: 0
+    property real suggestionIndex: -1
     property bool showResponse: false
 
     function reset() {
         showResponse = false
-        displayedAnswer = 0
+        suggestionIndex = -1
     }
 
 
@@ -51,7 +51,7 @@ Item {
             model: ["A", "B", "C", "D"]
 
             Row {
-                visible: displayedAnswer > index
+                visible: suggestionIndex >= index
                 opacity: showResponse && answer !== index ? 0.5 : 1
                 anchors.leftMargin : 10
                 y: index * (answersArea.linesHeight+answersArea.spacing)
@@ -75,6 +75,7 @@ Item {
 
 //                    TextMetrics{id: metrics; font: suggestion.font; text: suggestion.text}
                 }
+
             }
         }
     }

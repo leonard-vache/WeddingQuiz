@@ -39,10 +39,8 @@ ScorePage::ScorePage(QObject *parent) : PageInterface(parent),
 
 void ScorePage::readConfiguration(const QJsonObject &json)
 {
-//    if (json.contains("teams") && json["teams"].isObject())
     if (json.contains("teams") && json["teams"].isArray())
     {
-//        QJsonObject jteams = json["teams"].toObject();
         QJsonArray jteams = json["teams"].toArray();
         for (int i = 0; i < jteams.size(); ++i)
         {
@@ -56,8 +54,6 @@ void ScorePage::readConfiguration(const QJsonObject &json)
 
             addTeam(t_obj["name"].toString(), k);
         }
-
-        qInfo() << teamCount();
     }
 }
 
@@ -67,6 +63,7 @@ void ScorePage::addTeam(const QString& name, KeyEvents key)
     Team team;
     team.setName(name);
     team.setKey(key);
+
     m_teams.append(team);
     emit teamsChanged();
 }
@@ -89,11 +86,13 @@ void ScorePage::selectTeam(KeyEvents key)
 
 void ScorePage::increaseCurrentTeamScore(int delta)
 {
-    qInfo() << "Increase Score";
-    qInfo() << "Count index " << teamCount();
-    qInfo() << "Current index " << m_currentTeamIndex;
-    qInfo() << "Current score " << m_teams[m_currentTeamIndex].score();
-    m_teams[m_currentTeamIndex].increaseScore(delta);
+//    qInfo() << "Increase Score";
+//    qInfo() << "Count index " << teamCount();
+//    qInfo() << "Current index " << m_currentTeamIndex;
+//    qInfo() << "Current score " << m_teams[m_currentTeamIndex].score();
+    // Avoid negative number
+    if(m_teams[m_currentTeamIndex].score() + delta >= 0)
+        m_teams[m_currentTeamIndex].increaseScore(delta);
 }
 
 
@@ -123,20 +122,3 @@ Team* ScorePage::team(QQmlListProperty<Team>* list, int i) {
 int ScorePage::teamCount(QQmlListProperty<Team>* list) {
     return reinterpret_cast< ScorePage* >(list->data)->teamCount();
 }
-
-
-//QVariant ScorePage::teams() const
-//{
-//    QVariantList itemsList;
-
-//    for(const Team &p : m_teams)
-//    {
-//        QVariantMap itemMap;
-//        itemMap.insert("name", p.name());
-//        itemMap.insert("score", p.score());
-//        itemsList.append(itemMap);
-//    }
-
-//    return QVariant::fromValue(itemsList);
-//}
-

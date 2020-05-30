@@ -104,22 +104,6 @@ void QuestionsPage::readQQConfiguration(const QJsonObject &json)
 }
 
 
-
-
-void QuestionsPage::addMultiplechoiceQuestion(MultipleChoicesQuestion& q)
-{
-    m_mcq.append(q);
-    emit mcqChanged();
-}
-
-
-void QuestionsPage::addQuickQuestion(QuickQuestion& q)
-{
-    m_qq.append(q);
-    emit qqChanged();
-}
-
-
 void QuestionsPage::addReward(QuestionTypes type, int value)
 {
     m_rewards[type] = value;
@@ -156,8 +140,58 @@ int QuestionsPage::getCurrentReward() const
 }
 
 
-
 void QuestionsPage::next()
+{    
+    Question *q = getCurrentQuestion();
+    if( q->isNextable() )
+        nextQuestion();
+    else
+        q->next();
+}
+
+
+void QuestionsPage::previous()
+{
+    Question *q = getCurrentQuestion();
+    if( q->isReturnable() )
+        previousQuestion();
+    else
+        q->previous();
+}
+
+
+void QuestionsPage::enter()
+{
+    qInfo() << "Go to Question Enter";
+    Question *q = getCurrentQuestion();
+    q->enter();
+}
+
+
+void QuestionsPage::previousQuestion()
+{
+    m_globalQuestionId --;
+    if( m_globalQuestionId > m_mcq.length())
+    {
+        m_qqId --;
+        m_currentQuestion = E_QUICK;
+        emit currentQuestionChanged();
+        emit qqChanged();
+
+    }
+    else if ( m_globalQuestionId != m_mcq.length() && m_globalQuestionId > 0)
+    {
+        m_mcqId --;
+        m_currentQuestion = E_MULTIPLE_CHOICE;
+        emit currentQuestionChanged();
+        emit mcqChanged();
+    }
+
+}
+
+
+
+void QuestionsPage::nextQuestion()
 {
     m_globalQuestionId ++;
     if( m_globalQuestionId < m_mcq.length() )
@@ -167,9 +201,10 @@ void QuestionsPage::next()
         emit currentQuestionChanged();
         emit mcqChanged();
     }
-    else if ( m_globalQuestionId < m_qq.length() )
+    else
     {
-        m_qqId ++;
+        if ( m_globalQuestionId  != m_mcq.length() && m_globalQuestionId < m_mcq.length() + m_qq.length())
+            m_qqId ++;
         m_currentQuestion = E_QUICK;
         emit currentQuestionChanged();
         emit qqChanged();

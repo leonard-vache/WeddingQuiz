@@ -2,7 +2,7 @@ import QtQuick 2.14
 import WeddingQuiz 1.0
 
 Item {
-
+    id: root
 
     property MultipleChoicesQuestionObject mcqModel: questionsPage.mcq
     property QuickQuestionObject qqModel: questionsPage.qq
@@ -19,6 +19,9 @@ Item {
         suggestions: mcqModel.suggestions
         answer: mcqModel.answer-1
         content: mcqModel.content
+
+        showResponse: mcqModel.showAnswer
+        suggestionIndex: mcqModel.suggestionIndex
     }
 
     QuickQuestionItem {
@@ -27,7 +30,7 @@ Item {
         anchors.fill: parent
 
         heading:  qqModel.heading
-        title: "TAGADA" //qModel.suggestions
+        title: qModel.title
     }
 
 

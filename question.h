@@ -18,6 +18,13 @@ public:
 
     virtual void readConfiguration(const QJsonObject &json);
 
+    virtual bool isNextable() const { return true; }
+    virtual bool isReturnable() const { return true; }
+
+    virtual void previous() {}
+    virtual void next() {}
+    virtual void enter() {}
+
     // Getters
     const QString& heading() const { return m_heading; }
 

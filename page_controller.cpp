@@ -18,9 +18,9 @@ void PageController::setupPages(JinglePage *jp, ScorePage *sp, QuestionsPage *qp
     m_pQuestion = qp;
 
     // Build Map
-    m_pages[E_PAGE_SCORE] = m_pScore;
     m_pages[E_PAGE_JINGLE] = m_pJingle;
-    m_pages[E_PAGE_QUESTION] = m_pJingle;
+    m_pages[E_PAGE_SCORE] = m_pScore;
+    m_pages[E_PAGE_QUESTION] = m_pQuestion;
 
     // Display first page
     m_pages[m_currentPage]->setShowed(true);
@@ -72,7 +72,7 @@ void PageController::updateScore()
         // reset score
         m_pScore->setState(E_STATE_DISPLAY);
         // go back to question
-        m_currentPage = E_PAGE_QUESTION;
+        changePage(E_PAGE_QUESTION);
     }
 
     if( E_STATE_EDIT == m_pScore->getState() )
@@ -111,11 +111,13 @@ void PageController::updateQuestion()
         changePage(E_PAGE_SCORE);
 
     if(m_keyEvent == E_KEY_ENTER)
-        changePage(E_PAGE_SCORE);
+        m_pQuestion->enter();
 
     if(m_keyEvent == E_KEY_NEXT)
         m_pQuestion->next();
 
+    if(m_keyEvent == E_KEY_RETURN)
+        m_pQuestion->previous();
 }
 
 

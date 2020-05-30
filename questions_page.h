@@ -33,16 +33,18 @@ public:
     QuestionsPage(const QuestionsPage& copy);
     QuestionsPage& operator=(const QuestionsPage &copy);
 
-    Q_INVOKABLE void next();
+    void next();
+    void enter();
+    void previous();
+
+    void nextQuestion();
+    void previousQuestion();
 
     void readConfiguration(const QJsonObject &json);
     void readMCQConfiguration(const QJsonObject &json);
     void readQQConfiguration(const QJsonObject &json);
 
-    void addMultiplechoiceQuestion(MultipleChoicesQuestion& q);
-    void addQuickQuestion(QuickQuestion& q);
     void addReward(QuestionTypes type, int value);
-
     int getCurrentReward() const;
 
     // Getters
