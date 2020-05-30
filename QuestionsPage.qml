@@ -30,7 +30,7 @@ Item {
         anchors.fill: parent
 
         heading:  qqModel.heading
-        title: qModel.title
+        title: qqModel.title
     }
 
 

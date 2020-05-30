@@ -27,5 +27,4 @@ Rectangle {
         backgroundColor: team == 'Camille' ? "#bf3220" : "#d9ae14"
     }
 
-
 }

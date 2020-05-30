@@ -23,6 +23,7 @@ QuestionsPage::QuestionsPage(const QuestionsPage& copy)
     m_mcq = copy.m_mcq;
     m_qq = copy.m_qq;
 
+    m_questionIdToIndex = copy.m_questionIdToIndex;
     m_globalQuestionId = copy.m_globalQuestionId;
     m_mcqId = copy.m_mcqId;
     m_qqId = copy.m_qqId;
@@ -34,6 +35,7 @@ QuestionsPage& QuestionsPage::operator=(const QuestionsPage &copy)
     m_mcq = copy.m_mcq;
     m_qq = copy.m_qq;
 
+    m_questionIdToIndex = copy.m_questionIdToIndex;
     m_globalQuestionId = copy.m_globalQuestionId;
     m_mcqId = copy.m_mcqId;
     m_qqId = copy.m_qqId;
@@ -43,8 +45,11 @@ QuestionsPage& QuestionsPage::operator=(const QuestionsPage &copy)
 
 void QuestionsPage::readConfiguration(const QJsonObject &json)
 {
+    int global = m_globalQuestionId;
+    m_globalQuestionId = 0;
     readMCQConfiguration(json);
     readQQConfiguration(json);
+    m_globalQuestionId = global;
 }
 
 
@@ -66,7 +71,10 @@ void QuestionsPage::readMCQConfiguration(const QJsonObject &json)
                 {
                     MultipleChoicesQuestion mcq;
                     mcq.readConfiguration(q_array[idx].toObject());
+                    m_questionIdToIndex[m_globalQuestionId] = m_mcq.length();
+                    m_globalQuestionId++;
                     m_mcq.append(mcq);
+
                 }
                 else
                     qWarning() << "MCQ index" << idx << "is not an object !" << q_array[idx];
@@ -94,6 +102,8 @@ void QuestionsPage::readQQConfiguration(const QJsonObject &json)
                 {
                     QuickQuestion qq;
                     qq.readConfiguration(q_array[idx].toObject());
+                    m_questionIdToIndex[m_globalQuestionId] = m_qq.length();
+                    m_globalQuestionId++;
                     m_qq.append(qq);
                 }
                 else
@@ -112,13 +122,15 @@ void QuestionsPage::addReward(QuestionTypes type, int value)
 
 MultipleChoicesQuestion* QuestionsPage::mcq()
 {
-    return &m_mcq[m_mcqId];
+    int index = m_questionIdToIndex[m_globalQuestionId];
+    return &m_mcq[index];
 }
 
 
 QuickQuestion* QuestionsPage::qq()
 {
-    return &m_qq[m_qqId];
+    int index = m_questionIdToIndex[m_globalQuestionId];
+    return &m_qq[index];
 }
 
 
@@ -170,48 +182,35 @@ void QuestionsPage::enter()
 
 void QuestionsPage::previousQuestion()
 {
-    m_globalQuestionId --;
-    if( m_globalQuestionId > m_mcq.length())
+    if( m_globalQuestionId > 0 )
     {
-        m_qqId --;
-        m_currentQuestion = E_QUICK;
-        emit currentQuestionChanged();
-        emit qqChanged();
-
+        m_globalQuestionId --;
+        updateCurrentQuestion();
     }
-    else if ( m_globalQuestionId != m_mcq.length() && m_globalQuestionId > 0)
-    {
-        m_mcqId --;
-        m_currentQuestion = E_MULTIPLE_CHOICE;
-        emit currentQuestionChanged();
-        emit mcqChanged();
-    }
-
 }
-
 
 
 void QuestionsPage::nextQuestion()
 {
-    m_globalQuestionId ++;
-    if( m_globalQuestionId < m_mcq.length() )
+    if( m_globalQuestionId <  m_questionIdToIndex.count() -1)
     {
-        m_mcqId ++;
-        m_currentQuestion = E_MULTIPLE_CHOICE;
-        emit currentQuestionChanged();
-        emit mcqChanged();
+        m_globalQuestionId ++;
+        updateCurrentQuestion();
     }
-    else
-    {
-        if ( m_globalQuestionId  != m_mcq.length() && m_globalQuestionId < m_mcq.length() + m_qq.length())
-            m_qqId ++;
-        m_currentQuestion = E_QUICK;
-        emit currentQuestionChanged();
-        emit qqChanged();
-    }
-
 }
 
 
-
+void QuestionsPage::updateCurrentQuestion()
+{
+    if( m_globalQuestionId < m_mcq.length() )
+    {
+        setCurrentQuestion(E_MULTIPLE_CHOICE);
+        emit mcqChanged();
+    }
+    else if( m_globalQuestionId < m_qq.length() + m_mcq.length() )
+    {
+        setCurrentQuestion(E_QUICK);
+        emit qqChanged();
+    }
+}
 

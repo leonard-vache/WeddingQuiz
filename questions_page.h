@@ -33,16 +33,11 @@ public:
     QuestionsPage(const QuestionsPage& copy);
     QuestionsPage& operator=(const QuestionsPage &copy);
 
+
+    void readConfiguration(const QJsonObject &json);
     void next();
     void enter();
     void previous();
-
-    void nextQuestion();
-    void previousQuestion();
-
-    void readConfiguration(const QJsonObject &json);
-    void readMCQConfiguration(const QJsonObject &json);
-    void readQQConfiguration(const QJsonObject &json);
 
     void addReward(QuestionTypes type, int value);
     int getCurrentReward() const;
@@ -51,13 +46,24 @@ public:
     Question* getCurrentQuestion();
     MultipleChoicesQuestion* mcq();
     QuickQuestion* qq();
+
     QuestionTypes currentQuestion() { return m_currentQuestion; }
+    void setCurrentQuestion(QuestionTypes qType) { m_currentQuestion = qType; emit currentQuestionChanged(); }
+
+private:
+    void readMCQConfiguration(const QJsonObject &json);
+    void readQQConfiguration(const QJsonObject &json);
+    void updateCurrentQuestion();
+    void nextQuestion();
+    void previousQuestion();
+
 
 private:
     QMap<QuestionTypes, int> m_rewards;
     QList<MultipleChoicesQuestion> m_mcq;
     QList<QuickQuestion> m_qq;
 
+    QMap<int, int> m_questionIdToIndex;
     QuestionTypes m_currentQuestion;
     int m_globalQuestionId;
     int m_mcqId;
