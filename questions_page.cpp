@@ -8,48 +8,40 @@
 
 
 QuestionsPage::QuestionsPage(QObject *parent) : PageInterface(parent),
-    m_currentQuestion(E_MULTIPLE_CHOICE), m_globalQuestionId(0), m_mcqId(0), m_qqId(0)
+    m_currentQuestion(E_MULTIPLE_CHOICE), m_qIndex(0)
 {
 }
 
 
 QuestionsPage::~QuestionsPage()
 {
+    for( int i = 0; i < m_qList.count(); ++i)
+        delete m_qList[i];
 }
 
 
 QuestionsPage::QuestionsPage(const QuestionsPage& copy)
 {
-    m_mcq = copy.m_mcq;
-    m_qq = copy.m_qq;
+    m_qType = copy.m_qType;
+    m_qList = copy.m_qList;
+    m_qIndex = copy.m_qIndex;
 
-    m_questionIdToIndex = copy.m_questionIdToIndex;
-    m_globalQuestionId = copy.m_globalQuestionId;
-    m_mcqId = copy.m_mcqId;
-    m_qqId = copy.m_qqId;
 }
 
 
 QuestionsPage& QuestionsPage::operator=(const QuestionsPage &copy)
 {
-    m_mcq = copy.m_mcq;
-    m_qq = copy.m_qq;
-
-    m_questionIdToIndex = copy.m_questionIdToIndex;
-    m_globalQuestionId = copy.m_globalQuestionId;
-    m_mcqId = copy.m_mcqId;
-    m_qqId = copy.m_qqId;
+    m_qType = copy.m_qType;
+    m_qList = copy.m_qList;
+    m_qIndex = copy.m_qIndex;
     return *this;
 }
 
 
 void QuestionsPage::readConfiguration(const QJsonObject &json)
 {
-    int global = m_globalQuestionId;
-    m_globalQuestionId = 0;
     readMCQConfiguration(json);
     readQQConfiguration(json);
-    m_globalQuestionId = global;
 }
 
 
@@ -69,11 +61,11 @@ void QuestionsPage::readMCQConfiguration(const QJsonObject &json)
             {
                 if (q_array[idx].isObject())
                 {
-                    MultipleChoicesQuestion mcq;
-                    mcq.readConfiguration(q_array[idx].toObject());
-                    m_questionIdToIndex[m_globalQuestionId] = m_mcq.length();
-                    m_globalQuestionId++;
-                    m_mcq.append(mcq);
+                    MultipleChoicesQuestion *mcq = new MultipleChoicesQuestion();
+                    mcq->readConfiguration(q_array[idx].toObject());
+
+                    m_qList.append(mcq);
+                    m_qType.append(E_MULTIPLE_CHOICE);
 
                 }
                 else
@@ -93,6 +85,10 @@ void QuestionsPage::readQQConfiguration(const QJsonObject &json)
         if( q_json.contains("reward"))
             addReward(E_QUICK, q_json["reward"].toInt());
 
+        QString title;
+        if(q_json.contains("title"))
+            title = q_json["title"].toString();
+
         if (q_json.contains("QuestionsList") && q_json["QuestionsList"].isArray())
         {
             QJsonArray q_array = q_json["QuestionsList"].toArray();
@@ -100,11 +96,12 @@ void QuestionsPage::readQQConfiguration(const QJsonObject &json)
             {
                 if (q_array[idx].isObject())
                 {
-                    QuickQuestion qq;
-                    qq.readConfiguration(q_array[idx].toObject());
-                    m_questionIdToIndex[m_globalQuestionId] = m_qq.length();
-                    m_globalQuestionId++;
-                    m_qq.append(qq);
+                    QuickQuestion* qq = new QuickQuestion();
+                    qq->readConfiguration(q_array[idx].toObject());
+                    qq->setTitle(title);
+
+                    m_qList.append(qq);
+                    m_qType.append(E_QUICK);
                 }
                 else
                     qWarning() << "QQ index" << idx << "is not an object !" << q_array[idx];
@@ -122,69 +119,63 @@ void QuestionsPage::addReward(QuestionTypes type, int value)
 
 MultipleChoicesQuestion* QuestionsPage::mcq()
 {
-    int index = m_questionIdToIndex[m_globalQuestionId];
-    return &m_mcq[index];
+    return  dynamic_cast<MultipleChoicesQuestion*>(m_qList[m_qIndex]);
 }
 
 
 QuickQuestion* QuestionsPage::qq()
 {
-    int index = m_questionIdToIndex[m_globalQuestionId];
-    return &m_qq[index];
+    return  dynamic_cast<QuickQuestion*>(m_qList[m_qIndex]);
 }
 
 
-Question* QuestionsPage::getCurrentQuestion()
-{
-    if( m_currentQuestion == E_MULTIPLE_CHOICE )
-        return mcq();
-    else if ( m_currentQuestion == E_QUICK )
-        return qq();
-    else
-        qWarning() << "Unknown question" << m_currentQuestion;
-        return nullptr;
-}
+//Question* QuestionsPage::getCurrentQuestion()
+//{
+//    if( m_currentQuestion == E_MULTIPLE_CHOICE )
+//        return mcq();
+//    else if ( m_currentQuestion == E_QUICK )
+//        return qq();
+//    else
+//        qWarning() << "Unknown question" << m_currentQuestion;
+//        return nullptr;
+//}
 
 
 int QuestionsPage::getCurrentReward() const
 {
-    return m_rewards[m_currentQuestion];
+    return m_rewards[m_qType[m_qIndex]];
 }
 
 
 void QuestionsPage::next()
 {    
-    Question *q = getCurrentQuestion();
-    if( q->isNextable() )
+    if( m_qList[m_qIndex]->isNextable() )
         nextQuestion();
     else
-        q->next();
+        m_qList[m_qIndex]->next();
 }
 
 
 void QuestionsPage::previous()
 {
-    Question *q = getCurrentQuestion();
-    if( q->isReturnable() )
+    if( m_qList[m_qIndex]->isReturnable() )
         previousQuestion();
     else
-        q->previous();
+        m_qList[m_qIndex]->previous();
 }
 
 
 void QuestionsPage::enter()
 {
-    qInfo() << "Go to Question Enter";
-    Question *q = getCurrentQuestion();
-    q->enter();
+    m_qList[m_qIndex]->enter();
 }
 
 
 void QuestionsPage::previousQuestion()
 {
-    if( m_globalQuestionId > 0 )
+    if( m_qIndex > 0 )
     {
-        m_globalQuestionId --;
+        m_qIndex --;
         updateCurrentQuestion();
     }
 }
@@ -192,9 +183,9 @@ void QuestionsPage::previousQuestion()
 
 void QuestionsPage::nextQuestion()
 {
-    if( m_globalQuestionId <  m_questionIdToIndex.count() -1)
+    if( m_qIndex <  m_qList.count() -1)
     {
-        m_globalQuestionId ++;
+        m_qIndex ++;
         updateCurrentQuestion();
     }
 }
@@ -202,15 +193,17 @@ void QuestionsPage::nextQuestion()
 
 void QuestionsPage::updateCurrentQuestion()
 {
-    if( m_globalQuestionId < m_mcq.length() )
+    switch(m_qType[m_qIndex])
     {
-        setCurrentQuestion(E_MULTIPLE_CHOICE);
+    case E_MULTIPLE_CHOICE:
         emit mcqChanged();
-    }
-    else if( m_globalQuestionId < m_qq.length() + m_mcq.length() )
-    {
-        setCurrentQuestion(E_QUICK);
+        break;
+
+    case E_QUICK:
         emit qqChanged();
+        break;
     }
+
+    emit currentQuestionChanged();
 }
 

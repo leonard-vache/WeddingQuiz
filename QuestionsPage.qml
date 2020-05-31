@@ -31,6 +31,8 @@ Item {
 
         heading:  qqModel.heading
         title: qqModel.title
+        onTitleChanged: print("title", title)
+
     }
 
 

@@ -15,7 +15,7 @@ public:
     QuickQuestion(const QuickQuestion &copy);
     QuickQuestion& operator=(const QuickQuestion &copy);
 
-    void readConfiguration(const QJsonObject &json);
+//    void readConfiguration(const QJsonObject &json);
 
     const QString& title() const { return m_title; }
     void setTitle(const QString& title) { m_title = title; emit titleChanged(); }

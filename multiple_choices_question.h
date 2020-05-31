@@ -69,4 +69,6 @@ signals:
     void showAnswerChanged();
 };
 
+Q_DECLARE_METATYPE(MultipleChoicesQuestion);
+
 #endif // MULTIPLECHOICESQUESTION_H

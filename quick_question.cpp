@@ -21,11 +21,3 @@ QuickQuestion& QuickQuestion::operator=(const QuickQuestion &copy)
     return *this;
 }
 
-
-void QuickQuestion::readConfiguration(const QJsonObject &json)
-{
-    Question::readConfiguration(json);
-
-    if(json.contains("title"))
-        setTitle(json["title"].toString());
-}

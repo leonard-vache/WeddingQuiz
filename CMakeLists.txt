@@ -21,6 +21,8 @@ add_executable(${PROJECT_NAME}
                 configurator.h
                 question.cpp
                 question.h
+                question_decorator.cpp
+                question_decorator.h
                 multiple_choices_question.cpp
                 multiple_choices_question.h
                 quick_question.cpp

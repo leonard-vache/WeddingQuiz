@@ -34,6 +34,7 @@ public:
 
 protected:
     QString m_heading;
+    QString m_content;
 
 
 signals:
