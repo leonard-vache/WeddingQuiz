@@ -28,9 +28,11 @@ public:
     void readConfiguration(const QJsonObject &json);
     bool isNextable() const;
     bool isReturnable() const;
-    void previous();
-    void next();
-    void enter();
+    bool showContent() const;
+
+    bool previous();
+    bool next();
+    bool enter();
 
     bool allSuggestionsShowed();
 

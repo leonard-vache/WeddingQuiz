@@ -7,11 +7,13 @@
         <file>MultipleChoicesQuestionItem.qml</file>
         <file>Score.qml</file>
         <file>PageController.qml</file>
-        <file>VideoContent.qml</file>
         <file>jingleWQ.mp4</file>
         <file>wq_configuration.json</file>
         <file>ScorePage.qml</file>
         <file>QuestionsPage.qml</file>
         <file>QuickQuestionItem.qml</file>
+        <file>resources/wq_final_ps.jpg</file>
+        <file>MenuPage.qml</file>
+        <file>ContentPage.qml</file>
     </qresource>
 </RCC>

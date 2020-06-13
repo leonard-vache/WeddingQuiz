@@ -21,14 +21,14 @@ add_executable(${PROJECT_NAME}
                 configurator.h
                 question.cpp
                 question.h
-                question_decorator.cpp
-                question_decorator.h
                 multiple_choices_question.cpp
                 multiple_choices_question.h
                 quick_question.cpp
                 quick_question.h
                 questions_page.cpp
                 questions_page.h
+                content_page.cpp
+                content_page.h
                 remote_controller.cpp
                 remote_controller.h
                 page_controller.cpp
@@ -39,7 +39,10 @@ add_executable(${PROJECT_NAME}
                 page_interface.h
                 jingle_page.cpp
                 jingle_page.h
+                menu_page.cpp
+                menu_page.h
                 qml.qrc )
+
 
 target_compile_definitions( ${PROJECT_NAME}
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)

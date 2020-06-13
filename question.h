@@ -7,10 +7,12 @@
 #include <QJsonObject>
 
 
+
 class Question : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString heading READ heading NOTIFY headingChanged);
+    Q_PROPERTY(QString content READ content NOTIFY contentChanged);
 
 public:
     Question(QObject *parent = nullptr);
@@ -18,18 +20,23 @@ public:
 
     virtual void readConfiguration(const QJsonObject &json);
 
-    virtual bool isNextable() const { return true; }
-    virtual bool isReturnable() const { return true; }
+    // Criteria
+    virtual bool isNextable() const { return true; } // Go to next question
+    virtual bool isReturnable() const { return true; } // Go to previous question
+    virtual bool showContent() const { return m_content.isEmpty() == false; }
 
-    virtual void previous() {}
-    virtual void next() {}
-    virtual void enter() {}
+    virtual bool previous() { return false; }
+    virtual bool next() { return false; }
+    virtual bool enter() { return false; }
 
     // Getters
+    bool hasContent() { return m_content != ""; }
     const QString& heading() const { return m_heading; }
+    const QString& content() const { return m_content; }
 
     // Setters
     void setHeading(const QString& heading) { m_heading = heading; emit headingChanged(); }
+    void setContent(const QString& content) { m_content = content; emit contentChanged(); }
 
 
 protected:
@@ -39,7 +46,10 @@ protected:
 
 signals:
     void headingChanged();
+    void contentChanged();
 
 };
+
+
 
 #endif // QUESTION_H

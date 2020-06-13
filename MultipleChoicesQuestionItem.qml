@@ -80,13 +80,4 @@ Item {
         }
     }
 
-    VideoContent {
-        id: mediaContent
-        visible: false
-        anchors.centerIn: parent
-        width: 800
-        height: 600
-        enabled: content != ""
-        source: content
-    }
 }

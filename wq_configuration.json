@@ -5,7 +5,7 @@
 		"next": 16777239,
 		"return": 16777238,
 		"enter": 58,
-		"edit": 16777268
+		"edit": [16777268, 16777216]
 	},
 	
 	"ScorePage": {
@@ -43,7 +43,9 @@
 								"Fait une coupe au bol avec des ciseaux",
 								"Empêcher de jouer avec ses barbies",
 								"déguisé en femme"],
-				"answer": 2
+				"answer": 2,
+				"content": "resources/wq_final_ps.jpg"
+				
 			},
 			
 			{

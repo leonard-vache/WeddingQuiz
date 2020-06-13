@@ -4,6 +4,8 @@
 #include <QVariantList>
 #include <QVariantMap>
 
+using namespace Common;
+
 Team::Team(QObject *parent): QObject(parent),
     m_score(0)
 {

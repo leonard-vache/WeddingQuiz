@@ -1,28 +1,44 @@
 #include "remote_controller.h"
 
 #include <QDebug>
+#include <QJsonArray>
 
-
+using namespace Common;
 
 RemoteController::RemoteController(QObject *parent) : QObject(parent)
 {
-
 }
+
+
+void RemoteController::mapKey(KeyEvents key, const QJsonValue &jval)
+{
+    if( jval.isArray() )
+    {
+        QJsonArray array = jval.toArray();
+        for(int i = 0; i < array.size(); ++i)
+            m_keys[array[i].toInt()] = key;
+    }
+    else
+    {
+        m_keys[jval.toInt()] = key;
+    }
+}
+
 
 void RemoteController::readConfiguration(const QJsonObject &json)
 {
     // Remote
     if( json.contains("next"))
-        m_keys[json["next"].toInt()] = E_KEY_NEXT;
+        mapKey(E_KEY_NEXT, json["next"]);
 
     if( json.contains("return"))
-        m_keys[json["return"].toInt()] = E_KEY_RETURN;
+        mapKey(E_KEY_RETURN, json["return"]);
 
     if( json.contains("enter"))
-        m_keys[json["enter"].toInt()] = E_KEY_ENTER;
+        mapKey(E_KEY_ENTER, json["enter"]);
 
     if( json.contains("edit"))
-        m_keys[json["edit"].toInt()] = E_KEY_EDIT;
+        mapKey(E_KEY_EDIT, json["edit"]);
 
     // Keybord Debug
     m_keys[Qt::Key_Right] = E_KEY_NEXT;

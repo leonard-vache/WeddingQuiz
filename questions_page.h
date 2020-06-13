@@ -8,24 +8,20 @@
 #include <QMap>
 #include <QJsonObject>
 
+
+class QuestionContent;
 class Question;
 class MultipleChoicesQuestion;
 class QuickQuestion;
+
 
 class QuestionsPage : public PageInterface
 {
     Q_OBJECT
     Q_PROPERTY(MultipleChoicesQuestion* mcq READ mcq NOTIFY mcqChanged)
     Q_PROPERTY(QuickQuestion* qq READ qq NOTIFY qqChanged)
-    Q_PROPERTY(QuestionTypes currentQuestion READ currentQuestion NOTIFY currentQuestionChanged)
+    Q_PROPERTY(Common::QuestionTypes currentQuestion READ currentQuestion NOTIFY currentQuestionChanged)
 
-public:
-    enum QuestionTypes {
-        E_MULTIPLE_CHOICE,
-        E_QUICK
-    };
-    Q_ENUM(QuestionTypes);
-//    Q_PROPERTY(QVector<MultipleChoicesQuestion> mcq READ mcq NOTIFY mcqChanged);
 
 public:
     explicit QuestionsPage(QObject *parent = nullptr);
@@ -39,13 +35,15 @@ public:
     void enter();
     void previous();
 
-    void addReward(QuestionTypes type, int value);
+    void addReward(Common::QuestionTypes type, int value);
     int getCurrentReward() const;
+    Question *getCurrentQuestion();
 
     // Getters
-    MultipleChoicesQuestion* mcq();
-    QuickQuestion* qq();
-    QuestionTypes currentQuestion() { return m_qType[m_qIndex]; }
+    MultipleChoicesQuestion *mcq();
+    QuickQuestion *qq();
+    Common::QuestionTypes currentQuestion() { return m_qType[m_qIndex]; }
+
 
 
 private:
@@ -57,10 +55,10 @@ private:
 
 
 private:
-    QMap<QuestionTypes, int> m_rewards;
-    QuestionTypes m_currentQuestion;
+    QMap<Common::QuestionTypes, int> m_rewards;
+    Common::QuestionTypes m_currentQuestion;
     QList<Question*> m_qList;
-    QList<QuestionTypes> m_qType;
+    QList<Common::QuestionTypes> m_qType;
     int m_qIndex;
 
 

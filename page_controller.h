@@ -9,13 +9,8 @@ class PageInterface;
 class JinglePage;
 class ScorePage;
 class QuestionsPage;
-
-
-enum WQPage {
-    E_PAGE_JINGLE,
-    E_PAGE_SCORE,
-    E_PAGE_QUESTION,
-};
+class ContentPage;
+class MenuPage;
 
 
 class PageController: public QObject
@@ -23,31 +18,35 @@ class PageController: public QObject
 public:
     explicit PageController(QObject *parent = nullptr);
 
-    void setupPages(JinglePage *jp, ScorePage *sp, QuestionsPage* qp);
+    void setupPages(JinglePage *jp, ScorePage *sp, QuestionsPage* qp, MenuPage* mp, ContentPage* cp);
     void updatePage();
 
     // Remote Controller callback
-    void onKeyEvent(KeyEvents key);
+    void onKeyEvent(Common::KeyEvents key);
 
 
 private:
-    void changePage(WQPage page);
+    void changePage(Common::Page page, bool hide=true);
 
     void updateTitle();
     void updateScore();
     void updateQuestion();
     void updateJingle();
+    void updateMenu();
+    void updateContent();
 
 
 
 private:
-    KeyEvents m_keyEvent;
-    WQPage m_currentPage;
+    Common::KeyEvents m_keyEvent;
+    Common::Page m_currentPage;
 
-    QMap<WQPage,PageInterface*> m_pages;
+    QMap<Common::Page,PageInterface*> m_pages;
     JinglePage *m_pJingle;
     ScorePage *m_pScore;
     QuestionsPage *m_pQuestion;
+    MenuPage *m_pMenu;
+    ContentPage *m_pContent;
 
 };
 

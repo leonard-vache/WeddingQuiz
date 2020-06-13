@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QMap>
 #include <QJsonObject>
+#include <QJsonValue>
 
 
 class RemoteController : public QObject
@@ -17,9 +18,12 @@ public:
 
     void readConfiguration(const QJsonObject &json);
 
+private:
+    void mapKey(Common::KeyEvents key, const QJsonValue &jval);
+
 
 private:
-    QMap<int, KeyEvents> m_keys;
+    QMap<int, Common::KeyEvents> m_keys;
 
 
 public slots:
@@ -27,7 +31,7 @@ public slots:
 
 
 signals:
-    void keyPressed(KeyEvents key);
+    void keyPressed(Common::KeyEvents key);
 
     void nexted();
     void returned();

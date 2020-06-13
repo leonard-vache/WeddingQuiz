@@ -31,12 +31,12 @@ public:
     void setScore(int score) { m_score = score; emit scoreChanged(); }
     void increaseScore(int delta) { setScore(m_score+delta); }
 
-    KeyEvents getKey() const { return m_key; }
-    void setKey(KeyEvents key) { m_key = key; }
+    Common::KeyEvents getKey() const { return m_key; }
+    void setKey(Common::KeyEvents key) { m_key = key; }
 
 private:
     QString m_name;
-    KeyEvents m_key;
+    Common::KeyEvents m_key;
     int m_score;
 
 
@@ -71,16 +71,16 @@ public:
     void readConfiguration(const QJsonObject &json);
 
     // Accessors
-    ScoreState getState() const { return m_state; }
-    void setState(ScoreState state) { m_state = state; unselectTeam(); }
+    Common::ScoreState getState() const { return m_state; }
+    void setState(Common::ScoreState state) { m_state = state; unselectTeam(); }
 
-    void selectTeam(KeyEvents key);
+    void selectTeam(Common::KeyEvents key);
     void unselectTeam() { m_currentTeamIndex = -1; }
     bool isTeamSelected() { return m_currentTeamIndex != -1; }
     void increaseCurrentTeamScore(int delta);
 
     QQmlListProperty<Team> teams();
-    void addTeam(const QString& name, KeyEvents key);
+    void addTeam(const QString& name, Common::KeyEvents key);
 
     void clearTeams() { m_teams.clear(); }
     Team* team(int i) { return &(m_teams[i]); }
@@ -97,7 +97,7 @@ private:
 
 
 private:
-    ScoreState m_state;
+    Common::ScoreState m_state;
 
     int m_currentTeamIndex;
     QVector<Team> m_teams;

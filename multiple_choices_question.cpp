@@ -3,10 +3,10 @@
 
 #include <QJsonArray>
 
-MultipleChoicesQuestion::MultipleChoicesQuestion(QObject *parent) : Question(parent),
-    m_answer(3)
+MultipleChoicesQuestion::MultipleChoicesQuestion(QObject *parent) : Question(parent)
 {
     setSuggestionIndex(-1);
+    setShowAnswer(false);
 }
 
 MultipleChoicesQuestion::~MultipleChoicesQuestion() {}
@@ -65,7 +65,6 @@ void MultipleChoicesQuestion::readConfiguration(const QJsonObject &json)
 
 bool MultipleChoicesQuestion::allSuggestionsShowed()
 {
-    qInfo() << "m_suggestionIndex" << m_suggestionIndex << " " << m_suggestions.length()-1;
     return m_suggestionIndex == m_suggestions.length()-1;
 }
 
@@ -75,6 +74,13 @@ bool MultipleChoicesQuestion::isNextable() const
     return m_showAnswer;
 }
 
+
+bool MultipleChoicesQuestion::showContent() const
+{
+    return m_content.isEmpty() == false && m_suggestionIndex == -1;
+}
+
+
 bool MultipleChoicesQuestion::isReturnable() const
 {
     return m_suggestionIndex == -1;
@@ -82,42 +88,49 @@ bool MultipleChoicesQuestion::isReturnable() const
 
 
 
-void MultipleChoicesQuestion::next()
+bool MultipleChoicesQuestion::next()
 {
-    qInfo() << "In MCQ next" << m_suggestionIndex;
+
     if(m_suggestionIndex < m_suggestions.length()-1)
+    {
         setSuggestionIndex(m_suggestionIndex + 1);
+        return true;
+    }
+
+    return false;
 }
 
 
-void MultipleChoicesQuestion::previous()
+bool MultipleChoicesQuestion::previous()
 {
-    qInfo() << "In MCQ previous" << m_suggestionIndex;
     if(m_suggestionIndex >= 0)
     {
         setSuggestionIndex(m_suggestionIndex - 1);
         setShowAnswer(false);
+        return true;
     }
 
+    return false;
 }
 
 
-void MultipleChoicesQuestion::enter()
+bool MultipleChoicesQuestion::enter()
 {
-    qInfo() << "enter in" << m_showAnswer;
-
     if(false == m_showAnswer )
     {
         if( allSuggestionsShowed() )
+        {
             setShowAnswer(true);
+            return true;
+        }
     }
     else
     {
         setShowAnswer(false);
+        return true;
     }
 
-    qInfo() << "enter out" << m_showAnswer;
-
+    return false;
 }
 
 

@@ -1,14 +1,17 @@
 #include "questions_page.h"
 
 #include "question.h"
+#include "content_page.h"
 #include "quick_question.h"
 #include "multiple_choices_question.h"
 
 #include <QJsonArray>
 
+using namespace Common;
+
 
 QuestionsPage::QuestionsPage(QObject *parent) : PageInterface(parent),
-    m_currentQuestion(E_MULTIPLE_CHOICE), m_qIndex(0)
+    m_currentQuestion(E_MULTIPLE_CHOICE_QUESTION), m_qIndex(0)
 {
 }
 
@@ -52,7 +55,7 @@ void QuestionsPage::readMCQConfiguration(const QJsonObject &json)
         QJsonObject q_json = json["MultipleChoicesQuestions"].toObject();
 
         if( q_json.contains("reward"))
-            addReward(E_MULTIPLE_CHOICE, q_json["reward"].toInt());
+            addReward(E_MULTIPLE_CHOICE_QUESTION, q_json["reward"].toInt());
 
         if (q_json.contains("QuestionsList") && q_json["QuestionsList"].isArray())
         {
@@ -65,7 +68,7 @@ void QuestionsPage::readMCQConfiguration(const QJsonObject &json)
                     mcq->readConfiguration(q_array[idx].toObject());
 
                     m_qList.append(mcq);
-                    m_qType.append(E_MULTIPLE_CHOICE);
+                    m_qType.append(E_MULTIPLE_CHOICE_QUESTION);
 
                 }
                 else
@@ -83,7 +86,7 @@ void QuestionsPage::readQQConfiguration(const QJsonObject &json)
         QJsonObject q_json = json["QuickQuestions"].toObject();
 
         if( q_json.contains("reward"))
-            addReward(E_QUICK, q_json["reward"].toInt());
+            addReward(E_QUICK_QUESTION, q_json["reward"].toInt());
 
         QString title;
         if(q_json.contains("title"))
@@ -101,7 +104,7 @@ void QuestionsPage::readQQConfiguration(const QJsonObject &json)
                     qq->setTitle(title);
 
                     m_qList.append(qq);
-                    m_qType.append(E_QUICK);
+                    m_qType.append(E_QUICK_QUESTION);
                 }
                 else
                     qWarning() << "QQ index" << idx << "is not an object !" << q_array[idx];
@@ -116,29 +119,23 @@ void QuestionsPage::addReward(QuestionTypes type, int value)
     m_rewards[type] = value;
 }
 
+Question *QuestionsPage::getCurrentQuestion()
+{
+    return m_qList[m_qIndex];
+}
+
 
 MultipleChoicesQuestion* QuestionsPage::mcq()
 {
-    return  dynamic_cast<MultipleChoicesQuestion*>(m_qList[m_qIndex]);
+    return dynamic_cast<MultipleChoicesQuestion*>(m_qList[m_qIndex]);
 }
 
 
 QuickQuestion* QuestionsPage::qq()
 {
-    return  dynamic_cast<QuickQuestion*>(m_qList[m_qIndex]);
+    return dynamic_cast<QuickQuestion*>(m_qList[m_qIndex]);
 }
 
-
-//Question* QuestionsPage::getCurrentQuestion()
-//{
-//    if( m_currentQuestion == E_MULTIPLE_CHOICE )
-//        return mcq();
-//    else if ( m_currentQuestion == E_QUICK )
-//        return qq();
-//    else
-//        qWarning() << "Unknown question" << m_currentQuestion;
-//        return nullptr;
-//}
 
 
 int QuestionsPage::getCurrentReward() const
@@ -148,7 +145,9 @@ int QuestionsPage::getCurrentReward() const
 
 
 void QuestionsPage::next()
-{    
+{
+
+    qInfo() << m_qList[m_qIndex]->isNextable() <<  currentQuestion() << m_qIndex;
     if( m_qList[m_qIndex]->isNextable() )
         nextQuestion();
     else
@@ -167,8 +166,18 @@ void QuestionsPage::previous()
 
 void QuestionsPage::enter()
 {
+//    qInfo() << "enter " << m_qList[m_qIndex]->showContent() << m_qContent->getState();
+//    if(m_qList[m_qIndex]->showContent() || m_qContent->getState() != E_STOP)
+//    {
+//        m_qContent->enter();
+//    }
+//    else
+//    {
+//        m_qList[m_qIndex]->enter();
+//    }
     m_qList[m_qIndex]->enter();
 }
+
 
 
 void QuestionsPage::previousQuestion()
@@ -195,15 +204,16 @@ void QuestionsPage::updateCurrentQuestion()
 {
     switch(m_qType[m_qIndex])
     {
-    case E_MULTIPLE_CHOICE:
+    case E_MULTIPLE_CHOICE_QUESTION:
         emit mcqChanged();
         break;
 
-    case E_QUICK:
+    case E_QUICK_QUESTION:
         emit qqChanged();
         break;
     }
 
     emit currentQuestionChanged();
 }
+
 

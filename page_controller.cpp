@@ -1,8 +1,14 @@
 #include "page_controller.h"
 
+#include "question.h"
 #include "jingle_page.h"
 #include "score_page.h"
 #include "questions_page.h"
+#include "menu_page.h"
+#include "content_page.h"
+
+
+using namespace Common;
 
 
 PageController::PageController(QObject *parent) : QObject(parent),
@@ -11,16 +17,20 @@ PageController::PageController(QObject *parent) : QObject(parent),
 }
 
 
-void PageController::setupPages(JinglePage *jp, ScorePage *sp, QuestionsPage *qp)
+void PageController::setupPages(JinglePage *jp, ScorePage *sp, QuestionsPage *qp, MenuPage *mp, ContentPage *cp)
 {
     m_pJingle = jp;
     m_pScore = sp;
     m_pQuestion = qp;
+    m_pMenu = mp;
+    m_pContent = cp;
 
     // Build Map
     m_pages[E_PAGE_JINGLE] = m_pJingle;
     m_pages[E_PAGE_SCORE] = m_pScore;
     m_pages[E_PAGE_QUESTION] = m_pQuestion;
+    m_pages[E_PAGE_MENU] = m_pMenu;
+    m_pages[E_PAGE_CONTENT] = m_pContent;
 
     // Display first page
     m_pages[m_currentPage]->setShowed(true);
@@ -49,14 +59,22 @@ void PageController::updatePage()
     case E_PAGE_JINGLE:
         updateJingle();
         break;
+
+    case E_PAGE_MENU:
+        updateMenu();
+        break;
+
+    case E_PAGE_CONTENT:
+        updateContent();
     }
 }
 
 
-void PageController::changePage(WQPage page)
+void PageController::changePage(Page page, bool hide)
 {
     // Hide current page
-    m_pages[m_currentPage]->setShowed(false);
+    if(hide)
+        m_pages[m_currentPage]->setShowed(false);
     // Sow new page
     m_currentPage = page;
     m_pages[m_currentPage]->setShowed(true);
@@ -100,15 +118,15 @@ void PageController::updateScore()
     {
         if(m_keyEvent == E_KEY_EDIT)
             m_pScore->setState(E_STATE_EDIT);
-
     }
 }
 
 
 void PageController::updateQuestion()
 {
+    qInfo() << "Quetion" << m_keyEvent;
     if(m_keyEvent == E_KEY_EDIT)
-        changePage(E_PAGE_SCORE);
+        changePage(E_PAGE_MENU, false);
 
     if(m_keyEvent == E_KEY_ENTER)
         m_pQuestion->enter();
@@ -118,6 +136,57 @@ void PageController::updateQuestion()
 
     if(m_keyEvent == E_KEY_RETURN)
         m_pQuestion->previous();
+}
+
+
+void PageController::updateMenu()
+{
+    qInfo() << "Menu" << m_keyEvent;
+    if(m_keyEvent == E_KEY_EDIT)
+        changePage(E_PAGE_QUESTION);
+
+    if(m_keyEvent == E_KEY_ENTER)
+    {
+        if(m_pMenu->currentButton() == E_BUTTON_SCORE)
+        {
+            changePage(E_PAGE_SCORE);
+            m_pQuestion->setShowed(false);
+        }
+        else if(m_pMenu->currentButton() == E_BUTTON_CONTENT)
+        {
+            if(m_pQuestion->getCurrentQuestion()->hasContent())
+            {
+                changePage(E_PAGE_CONTENT);
+                m_pContent->enter();
+            }
+            else
+            {
+                changePage(E_PAGE_QUESTION);
+            }
+        }
+    }
+
+    if(m_keyEvent == E_KEY_NEXT)
+        m_pMenu->next();
+
+    if(m_keyEvent == E_KEY_RETURN)
+        m_pMenu->previous();
+}
+
+
+void PageController::updateContent()
+{
+    if(m_keyEvent == E_KEY_EDIT)
+        changePage(E_PAGE_QUESTION);
+
+    if(m_keyEvent == E_KEY_ENTER)
+        m_pContent->enter();
+
+    if(m_keyEvent == E_KEY_NEXT)
+        m_pContent->next();
+
+    if(m_keyEvent == E_KEY_RETURN)
+        m_pContent->previous();
 }
 
 
