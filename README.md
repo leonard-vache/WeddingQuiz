@@ -19,11 +19,11 @@ En plus du mapping en configuration, les touches du clavier sont mappées telles
 Tant que le Jingle tourne, les commandes sont ignorées
 * NEXT: Page Questions
 * ENTER: Lancement du Jingle
-* EDIT: Page Score
+* RETURN: Reset du Jingle
 
 ### Page Score
 * ENTER: Page Question
-* EDIT: ENtrée dans l'édition du Score
+* EDIT: Entrée dans l'édition du Score
   * NEXT: Choix de l'équipe 1
       * NEXT: Augmentation du score équipe 1
       * RETURN: Diminution du score équipe 1
@@ -33,15 +33,40 @@ Tant que le Jingle tourne, les commandes sont ignorées
     
 ### Page Questions
 * NEXT: Question Suivante si critère rempli
-* EDIT: Affichage du score
+* EDIT: Entrée dans Menu
 
 #### Question Choix Multiple
 Critère: Réponse affichée
 * NEXT: Proposition suivante
 * RETURN: Proposition précédente
-* ENTER: Affichage de la réponse si toute les proposition sont présentent
+* ENTER: Affichage de la réponse si toutes les propositions sont présentes
 
 #### Questions Rapides
 Critère: toujours vrai
+
+
+### Menu
+Visible Uniquement depuis la page question
+2 Composants -> Score et Content
+* NEXT: Composant suivant
+* RETURN: Composant précédent
+* ENTER: Sélection du composant
+  * Score: Affichage page Score
+  * Content: Affichage du contenu lié à la question (définit en conf)
+             Si il n'y a pas de contenu, retour à la question
+  
+### Contenu
+Visible Uniquement depuis la page question
+Peut être une image ou une vidéo
+* EDIT: Arret -> retour à la question
+
+#### Image
+* EDIT: Retour page question
+
+#### Vidéo
+* ENTER: Play/Pause
+* RETURN: Retour au début
+* EDIT: Retour page question
+    
 
 
