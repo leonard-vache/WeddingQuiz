@@ -103,6 +103,10 @@ int main(int argc, char *argv[])
     // Retrieve Item handling Questions' content
     QObject *qmlObject = rootObject->findChild<QObject*>("ContentPage");
     contentPage.setQmlObject(qmlObject);
+    // Retrieve Item handling Jingle
+    qmlObject = rootObject->findChild<QObject*>("JinglePage");
+    jinglePage.setQmlObject(qmlObject);
+
 
 
     if (engine.rootObjects().isEmpty())

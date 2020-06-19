@@ -19,6 +19,13 @@ Item {
             compressAnimation.start()
     }
 
+    function stop() {
+        yTranslationAnimation.stop()
+        xTranslationAnimation.stop()
+        rectScaleAnimation.stop()
+        compressAnimation.stop()
+    }
+
     signal ended()
 
     PropertyAnimation {

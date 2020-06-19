@@ -50,7 +50,7 @@ void RemoteController::readConfiguration(const QJsonObject &json)
 
 
 void RemoteController::keyChanged(int key) {
-    qInfo() << "Key Pressed " << key;
+    //qInfo() << "Key Pressed " << key;
 
     if(m_keys.contains(key))
         emit keyPressed(m_keys[key]);

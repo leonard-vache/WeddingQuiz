@@ -4,9 +4,6 @@ import WeddingQuiz.Common 1.0
 Item {
     id: root
 
-    property bool startJingle: jinglePage.run
-    onStartJingleChanged: if(startJingle === true) jingle.start()
-
     ScorePage {
         visible: scorePage.showed
         anchors.fill: parent
@@ -14,6 +11,7 @@ Item {
 
     Jingle {
         id: jingle
+        objectName: "JinglePage"
         visible: jinglePage.showed
         anchors.fill: parent
         onRunningChanged: if(running == false) jinglePage.run = false

@@ -15,5 +15,9 @@
         <file>resources/wq_final_ps.jpg</file>
         <file>MenuPage.qml</file>
         <file>ContentPage.qml</file>
+        <file>resources/jingle_cake_sprite_834x962.png</file>
+        <file>resources/HooliganJF.ttf</file>
+        <file>resources/Horsal.ttf</file>
+        <file>resources/jingle_cake_sprite_834x962_7_frames.png</file>
     </qresource>
 </RCC>
