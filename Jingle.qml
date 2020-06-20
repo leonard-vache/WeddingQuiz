@@ -1,4 +1,5 @@
-import QtQuick 2.14
+import QtQuick 2.15
+import QtMultimedia 5.15
 
 Rectangle {
     id: root
@@ -10,7 +11,6 @@ Rectangle {
     property int spacing: 10
 
     readonly property int wLetterIndex: 0
-    readonly property int dLetterIndex: 2
     readonly property int qLetterIndex: 9
 
     property bool weddingLettersVisible: false
@@ -45,6 +45,7 @@ Rectangle {
         // Reset Letters
         weddingLetters.reset()
         quizLetters.reset()
+        instrum.reset()
 
         restoring = false
     }
@@ -118,7 +119,7 @@ Rectangle {
                     target: wl
                     type: "YTranslation"
                     to: 0
-                    duration: 650
+                    duration: 550
                     onEnded: {
                         if( restoring == false) {
                             // Start next letter when animation is finished
@@ -133,7 +134,7 @@ Rectangle {
                 //////////////////////////////////////////////////////////////////////////////////////
                 Connections {
                     target: root
-                    onStartFinalAnimationChanged: {
+                    function onStartFinalAnimationChanged() {
                         if (startFinalAnimation == true && restoring == false)
                         {
                             var rectSize = weddingFinalLetterScale * letterHeight
@@ -179,7 +180,7 @@ Rectangle {
                 frameHeight: 962
                 loops: 1
                 interpolate: true
-                frameDuration: 70
+                frameDuration: 50
 
                 onCurrentFrameChanged: if(currentFrame == frameCount-2) sprite.stop()
 
@@ -213,6 +214,7 @@ Rectangle {
 
 
         function reset() {
+            quizAudio.reset()
             for(var i = 0; i < count; ++i ) {
                 var letter = root.children[qLetterIndex + i]
                 letter.reset()
@@ -252,8 +254,15 @@ Rectangle {
 
             Connections {
                 target: root
-                onStartQuizArrivalAnimationChanged: if(startQuizArrivalAnimation == true) quizArrivalAnimation.start()
-                onStartFinalAnimationChanged: {
+                function onStartQuizArrivalAnimationChanged() {
+                    if(startQuizArrivalAnimation == true)
+                    {
+                        quizAudio.play()
+                        quizArrivalAnimation.start()
+                    }
+                }
+
+                function onStartFinalAnimationChanged() {
                     if(startFinalAnimation == true && restoring == false)
                     {
                         ql.yScaleOrigin = 0
@@ -360,6 +369,36 @@ Rectangle {
         } // end of delegate: Letter (id: ql)
 
     } // end of Repeater
+
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    Audio {
+        id: quizAudio
+        source: "resources/quiz.mp3"
+        loops: 1
+
+        function reset() {
+            stop()
+            seek(0)
+        }
+
+        onStopped: if(restoring == false) instrum.play()
+
+    } // end of Audio (id: quizAudio)
+
+
+    Audio {
+        id: instrum
+        source: "resources/jingle_instrum.mp3"
+        loops: Audio.Infinite
+
+        function reset() {
+            stop()
+            seek(0)
+        }
+
+    } // end of Audio (id:instrum)
 
 }
 

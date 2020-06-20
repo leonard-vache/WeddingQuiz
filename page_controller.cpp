@@ -197,15 +197,17 @@ void PageController::updateJingle()
     {
         if(m_keyEvent == E_KEY_ENTER)
             m_pJingle->launch();
-
-        if(m_keyEvent == E_KEY_NEXT)
-            changePage(E_PAGE_QUESTION);
     }
 
+    if(m_keyEvent == E_KEY_NEXT)
+    {
+        changePage(E_PAGE_QUESTION);
+        // Stop sound
+        m_pJingle->restore();
+    }
 
     if(m_keyEvent == E_KEY_RETURN)
         m_pJingle->restore();
-
 
 }
 

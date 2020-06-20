@@ -30,9 +30,9 @@ Item {
         Connections {
             target: root
 
-            onPlay: video.play()
-            onPause: video.pause()
-            onReset: video.seek(0)
+            function onPlay() { video.play() }
+            function onPause() { video.pause() }
+            function onReset() { video.seek(0) }
         }
 
         onStopped: root.stopped();

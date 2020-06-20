@@ -1,6 +1,8 @@
 *.mp4
+*.mp3
 *.autosave
 *.jpeg
 *.png
 *.jpg
 *.user
+CMakeLists.txt.user

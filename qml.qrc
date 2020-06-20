@@ -19,5 +19,24 @@
         <file>resources/HooliganJF.ttf</file>
         <file>resources/Horsal.ttf</file>
         <file>resources/jingle_cake_sprite_834x962_7_frames.png</file>
+        <file>resources/score_clean_1.png</file>
+        <file>resources/score_clean_2.png</file>
+        <file>resources/score_clean_3.png</file>
+        <file>resources/score_clean_4.png</file>
+        <file>resources/score_clean_5.png</file>
+        <file>resources/score_clean_6.png</file>
+        <file>resources/score_clean_7.png</file>
+        <file>resources/score_clean_8.png</file>
+        <file>resources/score_clean_9.png</file>
+        <file>resources/score_clean_10.png</file>
+        <file>resources/score_clean_11.png</file>
+        <file>resources/score_clean_12.png</file>
+        <file>resources/score_clean_13.png</file>
+        <file>resources/score_clean_14.png</file>
+        <file>resources/score_clean_15.png</file>
+        <file>resources/score_clean_16.png</file>
+        <file>resources/score_clean_17.png</file>
+        <file>resources/quiz.mp3</file>
+        <file>resources/jingle_instrum.mp3</file>
     </qresource>
 </RCC>
