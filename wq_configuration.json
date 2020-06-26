@@ -44,7 +44,7 @@
 								"Empêcher de jouer avec ses barbies",
 								"déguisé en femme"],
 				"answer": 2,
-				"content": "resources/wq_final_ps.jpg"
+				"content": "resources/piece_montee_de_la_mort.png"
 				
 			},
 			
@@ -84,6 +84,10 @@
 			}
 			
 			]
+		},
+		
+		"Transition": {
+			"content": "resources/piece_montee_de_la_mort.png"
 		}
 	}
 }

@@ -30,8 +30,6 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<MultipleChoicesQuestion>("WeddingQuiz", 1, 0, "MultipleChoicesQuestionObject");
     qmlRegisterType<QuickQuestion>("WeddingQuiz", 1, 0, "QuickQuestionObject");
-//    qmlRegisterType<QuestionTypes>("WeddingQuiz", 1, 0, "QuestionTypesObject");
-
     qmlRegisterType<Team>("WeddingQuiz", 1, 0, "TeamObject");
 
 

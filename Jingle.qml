@@ -46,6 +46,7 @@ Rectangle {
         weddingLetters.reset()
         quizLetters.reset()
         instrum.reset()
+        audioPresentations.reset()
 
         restoring = false
     }
@@ -361,7 +362,7 @@ Rectangle {
                     type: "RectangularScale"
                     to: quizFinalLetterScale
                     duration: quizFinalAnimation.duration
-                    onEnded: if(restoring == false) root.running = false
+                    onEnded: if(restoring == false) audioPresentations.start()
                 }
 
             } // end of Item (id: quizFinalAnimation)
@@ -375,7 +376,7 @@ Rectangle {
 
     Audio {
         id: quizAudio
-        source: "resources/quiz.mp3"
+        source: "resources/jingle_quiz.mp3"
         loops: 1
 
         function reset() {
@@ -397,8 +398,16 @@ Rectangle {
             stop()
             seek(0)
         }
+        volume: QtMultimedia.convertVolume(0.5,
+                                           QtMultimedia.LogarithmicVolumeScale,
+                                           QtMultimedia.LinearVolumeScale)
 
     } // end of Audio (id:instrum)
+
+    JingleAudioPresentations {
+        id: audioPresentations
+        onEnded: root.running = false
+    }
 
 }
 

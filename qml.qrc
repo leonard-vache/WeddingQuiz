@@ -12,7 +12,6 @@
         <file>ScorePage.qml</file>
         <file>QuestionsPage.qml</file>
         <file>QuickQuestionItem.qml</file>
-        <file>resources/wq_final_ps.jpg</file>
         <file>MenuPage.qml</file>
         <file>ContentPage.qml</file>
         <file>resources/jingle_cake_sprite_834x962.png</file>
@@ -36,7 +35,18 @@
         <file>resources/score_clean_15.png</file>
         <file>resources/score_clean_16.png</file>
         <file>resources/score_clean_17.png</file>
-        <file>resources/quiz.mp3</file>
         <file>resources/jingle_instrum.mp3</file>
+        <file>resources/jingle_camille.mp3</file>
+        <file>resources/jingle_delphine.mp3</file>
+        <file>resources/jingle_diane.mp3</file>
+        <file>resources/jingle_intro.mp3</file>
+        <file>resources/jingle_leo_charles.mp3</file>
+        <file>resources/jingle_margaux.mp3</file>
+        <file>resources/jingle_nina.mp3</file>
+        <file>resources/jingle_quiz.mp3</file>
+        <file>resources/jingle_romain.mp3</file>
+        <file>JingleAudioPresentations.qml</file>
+        <file>resources/transition_piece_montee_de_la_mort.png</file>
+        <file>resources/transition_marrer_marier.png</file>
     </qresource>
 </RCC>

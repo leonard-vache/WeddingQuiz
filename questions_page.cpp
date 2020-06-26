@@ -166,15 +166,6 @@ void QuestionsPage::previous()
 
 void QuestionsPage::enter()
 {
-//    qInfo() << "enter " << m_qList[m_qIndex]->showContent() << m_qContent->getState();
-//    if(m_qList[m_qIndex]->showContent() || m_qContent->getState() != E_STOP)
-//    {
-//        m_qContent->enter();
-//    }
-//    else
-//    {
-//        m_qList[m_qIndex]->enter();
-//    }
     m_qList[m_qIndex]->enter();
 }
 

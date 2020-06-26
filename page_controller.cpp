@@ -86,7 +86,6 @@ void PageController::updateScore()
     qInfo() << "In update Score";
     if(m_keyEvent == E_KEY_ENTER)
     {
-        qInfo() << " > Enter -> reset";
         // reset score
         m_pScore->setState(E_STATE_DISPLAY);
         // go back to question
@@ -124,7 +123,6 @@ void PageController::updateScore()
 
 void PageController::updateQuestion()
 {
-    qInfo() << "Quetion" << m_keyEvent;
     if(m_keyEvent == E_KEY_EDIT)
         changePage(E_PAGE_MENU, false);
 
@@ -141,7 +139,6 @@ void PageController::updateQuestion()
 
 void PageController::updateMenu()
 {
-    qInfo() << "Menu" << m_keyEvent;
     if(m_keyEvent == E_KEY_EDIT)
         changePage(E_PAGE_QUESTION);
 
