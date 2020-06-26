@@ -1,6 +1,7 @@
 #include "content_page.h"
 
 #include <QRegExp>
+#include <QJsonArray>
 
 using namespace Common;
 
@@ -15,6 +16,28 @@ ContentPage::ContentPage(const ContentPage &copy)
     m_running = copy.m_running;
     m_state = copy.m_state;
 }
+
+
+void ContentPage::readConfiguration(const QJsonObject &json) {
+
+    qInfo() << json;
+
+    if( json.contains("AutoPause") && json["AutoPause"].isObject())
+    {
+        QJsonObject j_pauses = json["AutoPause"].toObject();
+        QStringList key = j_pauses.keys();
+        QStringList::const_iterator constIterator;
+        for (constIterator = key.constBegin(); constIterator != key.constEnd(); ++constIterator)
+        {
+            QString k = (*constIterator).toLocal8Bit().constData();
+            m_autopauses[k] = j_pauses[k].toInt();
+        }
+
+        qInfo() << m_autopauses;
+
+    }
+}
+
 
 
 void ContentPage::clear()
@@ -59,8 +82,9 @@ void ContentPage::setQmlObject(QObject *qmlObj)
     // QML to C++
     QObject::connect(qmlObj, SIGNAL(stopped()),
                      this, SLOT(onStopped()) );
-    QObject::connect(qmlObj, SIGNAL(positionChanged(int pos)),
-                     this, SLOT(onPositionChanged(int pos)) );
+
+//    QObject::connect(qmlObj, SIGNAL(positionChanged(int pos)),
+//                     this, SLOT(onPositionChanged(int pos)) );
 }
 
 
@@ -114,8 +138,18 @@ void ContentPage::onStopped()
 }
 
 
+int ContentPage::getAutoPause(const QString &src) const
+{
+    if(isVideo(src) && m_autopauses.contains(src))
+        return m_autopauses[src];
+    else
+        return -1;
+}
+
+
 void ContentPage::onPositionChanged(int pos)
 {
+
     m_position = pos;
     qInfo() << pos;
 }

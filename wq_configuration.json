@@ -43,8 +43,7 @@
 								"Fait une coupe au bol avec des ciseaux",
 								"Empêcher de jouer avec ses barbies",
 								"déguisé en femme"],
-				"answer": 2,
-				"content": "resources/piece_montee_de_la_mort.png"
+				"answer": 2
 				
 			},
 			
@@ -72,22 +71,38 @@
 		},
 		
 		"QuickQuestions": {
-			"title": "YES or NO",
+			"title": "Se marrer, Se marier, ou les deux ?",
 			"reward": 3,
 			"QuestionsList":  [
 			{
-				"heading": "TODO ?"
+				"heading": "A deux c'est mieux"
 			},
 			
 			{
-				"heading": "TODO 2 ?"
+				"heading": "N'arrive qu'une seule fois dans la vie"
+			},
+			
+			{
+				"heading": "Peut faire mal au ventre"
+			},
+			
+			{
+				"heading": "Il y en a qui en sont mort"
 			}
 			
 			]
-		},
-		
-		"Transition": {
-			"content": "resources/piece_montee_de_la_mort.png"
 		}
+	},
+	
+	
+	"Contents": {
+		"AutoPause": {
+			"C:/Users/vache/Videos/Captures/jingleWQ.mp4": 8000
+		}
+	},
+	
+	"Transitions": {
+		"MultipleChoicesQuestions": "resources/transition_marrer_marier.png",
+		"QuickQuestions": "resources/transition_piece_montee_de_la_mort.png"
 	}
 }

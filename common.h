@@ -37,6 +37,7 @@ namespace Common
         E_PAGE_QUESTION,
         E_PAGE_MENU,
         E_PAGE_CONTENT,
+        E_PAGE_TRANSITION
     };
 
     enum ScoreState {

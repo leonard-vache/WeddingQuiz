@@ -14,14 +14,18 @@ Item {
 
     function reset() {
         restoring = true
-        for(var i = 0; i < root.children.length; ++i ) {
-            root.children[i].reset()
-        }
+        presentations.reset()
         restoring = false
     }
 
     Repeater {
         id: presentations
+        function reset() {
+            for(var i = 0; i < root.children.length; ++i ) {
+                root.children[i].reset()
+            }
+        }
+
         model: ["intro", "camille", "romain", "margaux", "diane", "nina", "delphine", "leo_charles"]
         delegate: Item {
             function play() { audio.play() }

@@ -17,6 +17,7 @@
 #include "menu_page.h"
 #include "content_page.h"
 #include "page_controller.h"
+#include "transition_page.h"
 
 
 
@@ -53,24 +54,34 @@ int main(int argc, char *argv[])
     QuestionsPage questionsPage;
     MenuPage menuPage;
     ContentPage contentPage;
+    TransitionPage transitionPage;
 
     PageController pageController;
-    pageController.setupPages(&jinglePage, &scorePage, &questionsPage, &menuPage, &contentPage);
 
 
     /* Load Configuration Sections */
     conf.loadConfigurationFile(QStringLiteral("wq_configuration.json"));
 
-    assert( conf.isSection("RemoteController") );
+    Q_ASSERT( conf.isSection("RemoteController") == true );
     remoteController.readConfiguration(conf.getSection("RemoteController"));
 
-    assert( conf.isSection("QuestionsPage") );
+    Q_ASSERT( conf.isSection("QuestionsPage") == true );
     questionsPage.readConfiguration(conf.getSection("QuestionsPage"));
 
-    assert( conf.isSection("ScorePage") );
+    Q_ASSERT( conf.isSection("ScorePage") == true );
     scorePage.readConfiguration(conf.getSection("ScorePage"));
 
+    Q_ASSERT( conf.isSection("Transitions") == true );
+    transitionPage.readConfiguration(conf.getSection("Transitions"));
+
+    Q_ASSERT( conf.isSection("Contents") == true );
+    contentPage.readConfiguration(conf.getSection("Contents"));
+
     qInfo() << "Configuration Loaded !";
+
+
+    pageController.setupPages(&jinglePage, &scorePage, &questionsPage, &menuPage, &contentPage, &transitionPage);
+
 
 
     /* Connections */
@@ -78,20 +89,14 @@ int main(int argc, char *argv[])
                      &pageController, &PageController::onKeyEvent);
 
 
-
-//    MultipleChoicesQuestion *q = dynamic_cast<MultipleChoicesQuestion*>(questionManager.getQuestion(2));
-//    qInfo() << q->heading();
-//    engine.rootContext()->setContextProperty("qm", q);
-
-
-//    qInfo() << "supported codec" << QMediaRecorder::supportedVideoCodecs()
-//    engine.rootContext()->setContextProperty("questions", questionManager.getQuestionList());
+    /* Expose Models */
     engine.rootContext()->setContextProperty("remote", &remoteController);
     engine.rootContext()->setContextProperty("jinglePage", &jinglePage);
     engine.rootContext()->setContextProperty("scorePage", &scorePage);
     engine.rootContext()->setContextProperty("questionsPage", &questionsPage);
     engine.rootContext()->setContextProperty("menuPage", &menuPage);
     engine.rootContext()->setContextProperty("contentPage", &contentPage);
+    engine.rootContext()->setContextProperty("transitionPage", &transitionPage);
 
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

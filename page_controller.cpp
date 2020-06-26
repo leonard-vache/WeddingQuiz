@@ -6,6 +6,7 @@
 #include "questions_page.h"
 #include "menu_page.h"
 #include "content_page.h"
+#include "transition_page.h"
 
 
 using namespace Common;
@@ -17,13 +18,14 @@ PageController::PageController(QObject *parent) : QObject(parent),
 }
 
 
-void PageController::setupPages(JinglePage *jp, ScorePage *sp, QuestionsPage *qp, MenuPage *mp, ContentPage *cp)
+void PageController::setupPages(JinglePage *jp, ScorePage *sp, QuestionsPage *qp, MenuPage *mp, ContentPage *cp, TransitionPage *tp)
 {
     m_pJingle = jp;
     m_pScore = sp;
     m_pQuestion = qp;
     m_pMenu = mp;
     m_pContent = cp;
+    m_pTransition = tp;
 
     // Build Map
     m_pages[E_PAGE_JINGLE] = m_pJingle;
@@ -31,6 +33,16 @@ void PageController::setupPages(JinglePage *jp, ScorePage *sp, QuestionsPage *qp
     m_pages[E_PAGE_QUESTION] = m_pQuestion;
     m_pages[E_PAGE_MENU] = m_pMenu;
     m_pages[E_PAGE_CONTENT] = m_pContent;
+    m_pages[E_PAGE_TRANSITION] = m_pTransition;
+
+    m_currentQuestionType = m_pQuestion->currentQuestion();
+
+    // Conections
+    connect(m_pQuestion, &QuestionsPage::currentQuestionChanged,
+            this, &PageController::onCurrentQuestionChanged);
+
+    connect(m_pQuestion, &QuestionsPage::ended,
+            this, &PageController::onQuestionsEnded);
 
     // Display first page
     m_pages[m_currentPage]->setShowed(true);
@@ -41,6 +53,26 @@ void PageController::onKeyEvent( KeyEvents key )
 {
     m_keyEvent = key;
     updatePage();
+}
+
+
+void PageController::onCurrentQuestionChanged()
+{
+    qInfo() << "onCurrentQuestionChanged" << m_currentQuestionType << m_pQuestion->currentQuestion();
+    if( m_currentQuestionType != m_pQuestion->currentQuestion())
+    {
+        m_pTransition->setQuestionTransition(m_currentQuestionType);
+        m_currentQuestionType = m_pQuestion->currentQuestion();
+
+        changePage(E_PAGE_TRANSITION);
+    }
+}
+
+
+void PageController::onQuestionsEnded()
+{
+    m_pTransition->setQuestionTransition(m_currentQuestionType);
+    changePage(E_PAGE_TRANSITION);
 }
 
 
@@ -66,6 +98,11 @@ void PageController::updatePage()
 
     case E_PAGE_CONTENT:
         updateContent();
+        break;
+
+    case E_PAGE_TRANSITION:
+        updateTransition();
+        break;
     }
 }
 
@@ -81,9 +118,9 @@ void PageController::changePage(Page page, bool hide)
 }
 
 
+
 void PageController::updateScore()
 {
-    qInfo() << "In update Score";
     if(m_keyEvent == E_KEY_ENTER)
     {
         // reset score
@@ -206,5 +243,22 @@ void PageController::updateJingle()
     if(m_keyEvent == E_KEY_RETURN)
         m_pJingle->restore();
 
+}
+
+
+void PageController::updateTransition()
+{
+    qInfo() << "In update Transition";
+    if(m_keyEvent == E_KEY_EDIT)
+        changePage(E_PAGE_SCORE);
+
+    if(m_keyEvent == E_KEY_NEXT)
+        changePage(E_PAGE_QUESTION);
+
+    if(m_keyEvent == E_KEY_RETURN)
+    {
+        changePage(E_PAGE_QUESTION);
+        m_pQuestion->previous();
+    }
 }
 

@@ -2,6 +2,8 @@
 #define ContentPage_H
 
 #include <QObject>
+#include <QJsonObject>
+#include <QMap>
 
 #include "common.h"
 #include "page_interface.h"
@@ -16,6 +18,8 @@ public:
     explicit ContentPage(QObject *parent = nullptr);
     ContentPage(const ContentPage &copy);
 
+    void readConfiguration(const QJsonObject &json);
+
     bool running() const { return m_running; }
     void setRunning(bool running) { m_running = running; emit runningChanged(); }
 
@@ -27,6 +31,7 @@ public:
     Q_INVOKABLE bool isImage(const QString& src) const;
     Q_INVOKABLE bool isVideo(const QString& src) const;
     Q_INVOKABLE void clear();
+    Q_INVOKABLE int getAutoPause(const QString &src) const;
 
     void next();
     void enter();
@@ -36,6 +41,7 @@ public:
 private:
     bool m_running;
     int m_position;
+    QMap<QString, int> m_autopauses;
 
     Common::ContentState m_state;
 

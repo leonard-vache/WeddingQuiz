@@ -5,6 +5,7 @@ Item {
     id: root
 
     ScorePage {
+        id: score
         visible: scorePage.showed
         anchors.fill: parent
     }
@@ -32,11 +33,9 @@ Item {
         id: questions
         visible: questionsPage.showed
         anchors.fill: parent
-        onCurrentContentChanged: print("currentCOntent", currentContent)
     }
 
-    ContentPage
-    {
+    ContentPage {
         id: content
         objectName: "ContentPage"
         anchors.fill: parent
@@ -49,6 +48,15 @@ Item {
             contentPage.clear()
             content.isImage = contentPage.isImage(content.source)
             content.isVideo = contentPage.isVideo(content.source)
+            content.autopause = contentPage.getAutoPause(content.source)
+            content.autopauseDone = false
         }
+    }
+
+    TransitionPage {
+        id: transition
+        visible: transitionPage.showed
+        anchors.fill: parent
+        source: transitionPage.imageSource
     }
 }

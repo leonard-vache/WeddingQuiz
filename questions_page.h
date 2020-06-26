@@ -56,7 +56,6 @@ private:
 
 private:
     QMap<Common::QuestionTypes, int> m_rewards;
-    Common::QuestionTypes m_currentQuestion;
     QList<Question*> m_qList;
     QList<Common::QuestionTypes> m_qType;
     int m_qIndex;
@@ -66,6 +65,9 @@ signals:
     void mcqChanged();
     void qqChanged();
     void currentQuestionChanged();
+    // Emit when last question is reached
+    void ended();
+
 };
 
 

@@ -48,5 +48,6 @@
         <file>JingleAudioPresentations.qml</file>
         <file>resources/transition_piece_montee_de_la_mort.png</file>
         <file>resources/transition_marrer_marier.png</file>
+        <file>TransitionPage.qml</file>
     </qresource>
 </RCC>

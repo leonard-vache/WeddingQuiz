@@ -11,7 +11,7 @@ using namespace Common;
 
 
 QuestionsPage::QuestionsPage(QObject *parent) : PageInterface(parent),
-    m_currentQuestion(E_MULTIPLE_CHOICE_QUESTION), m_qIndex(0)
+    m_qIndex(0)
 {
 }
 
@@ -147,7 +147,7 @@ int QuestionsPage::getCurrentReward() const
 void QuestionsPage::next()
 {
 
-    qInfo() << m_qList[m_qIndex]->isNextable() <<  currentQuestion() << m_qIndex;
+//    qInfo() << m_qList[m_qIndex]->isNextable() <<  currentQuestion() << m_qIndex;
     if( m_qList[m_qIndex]->isNextable() )
         nextQuestion();
     else
@@ -188,6 +188,11 @@ void QuestionsPage::nextQuestion()
         m_qIndex ++;
         updateCurrentQuestion();
     }
+    else
+    {
+        emit ended();
+    }
+
 }
 
 
@@ -203,7 +208,7 @@ void QuestionsPage::updateCurrentQuestion()
         emit qqChanged();
         break;
     }
-
+    qInfo() << "currentQuestion() updated";
     emit currentQuestionChanged();
 }
 

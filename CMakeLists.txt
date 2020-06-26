@@ -35,6 +35,8 @@ add_executable(${PROJECT_NAME}
                 page_controller.h
                 score_page.cpp
                 score_page.h
+                transition_page.cpp
+                transition_page.h
                 page_interface.cpp
                 page_interface.h
                 jingle_page.cpp

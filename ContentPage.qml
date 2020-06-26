@@ -1,5 +1,5 @@
-import QtQuick 2.14
-import QtMultimedia 5.14
+import QtQuick 2.15
+import QtMultimedia 5.15
 import WeddingQuiz 1.0
 
 Item {
@@ -10,6 +10,8 @@ Item {
 
     property bool isVideo: false
     property bool isImage: false
+    property int autopause: -1
+    property bool autopauseDone: false
     // From C++ Model
     signal reset()
     signal play()
@@ -26,6 +28,7 @@ Item {
         enabled: root.isVideo
         anchors.fill: parent
         source: isVideo ? root.source : ""
+        notifyInterval: 200
 
         Connections {
             target: root
@@ -36,7 +39,12 @@ Item {
         }
 
         onStopped: root.stopped();
-        onPositionChanged: {print("position:", position); root.positionChanged(position)}
+        onPositionChanged: {
+            if( autopause > 0 && autopauseDone == false && position > autopause) {
+                video.pause()
+                autopauseDone = true
+            }
+        }
     }
 
     Image {

@@ -75,10 +75,10 @@ void ScorePage::selectTeam(KeyEvents key)
 {
     for(int i = 0; i < m_teams.count() ; ++i)
     {
-        qInfo() << key << " " << m_teams[i].getKey();
+        //qInfo() << key << " " << m_teams[i].getKey();
         if( key == m_teams[i].getKey())
         {
-            qInfo() << "  > Team selected " << m_teams[i].name();
+            //qInfo() << "  > Team selected " << m_teams[i].name();
             m_currentTeamIndex = i;
             break;
         }
