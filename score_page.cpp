@@ -7,21 +7,23 @@
 using namespace Common;
 
 Team::Team(QObject *parent): QObject(parent),
-    m_score(0)
+    m_score(0), m_selected(false)
 {
 }
 
 Team::Team(const Team &copy)
 {
-   m_name = copy.m_name;
-   m_key = copy.m_key;
-   m_score = copy.m_score;
+    m_name = copy.m_name;
+    m_key = copy.m_key;
+    m_selected = copy.m_selected;
+    m_score = copy.m_score;
 }
 
 Team& Team::operator=(const Team &copy)
 {
     m_name = copy.m_name;
     m_key = copy.m_key;
+    m_selected = copy.m_selected;
     m_score = copy.m_score;
     return *this;
 }
@@ -73,16 +75,27 @@ void ScorePage::addTeam(const QString& name, KeyEvents key)
 
 void ScorePage::selectTeam(KeyEvents key)
 {
+    if( isTeamSelected() )
+        m_teams[m_currentTeamIndex].setSelected(false);
+
     for(int i = 0; i < m_teams.count() ; ++i)
     {
-        //qInfo() << key << " " << m_teams[i].getKey();
+        qInfo() << key << m_teams[i].getKey();
         if( key == m_teams[i].getKey())
         {
-            //qInfo() << "  > Team selected " << m_teams[i].name();
+            qInfo() << "  > Team selected " << m_teams[i].name();
             m_currentTeamIndex = i;
+            m_teams[i].setSelected(true);
             break;
         }
     }
+}
+
+void ScorePage::unselectTeam() {
+    m_currentTeamIndex = -1;
+
+    for(int i = 0; i < m_teams.count() ; ++i)
+        m_teams[i].setSelected(false);
 }
 
 

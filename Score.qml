@@ -6,8 +6,30 @@ Rectangle {
     property int value: 0
     property int scoreHeight: Math.round(height * 0.4)
     property string team: 'Camille'
+    property bool selected: false
+
+    function getTextColor() {
+
+        if(team == 'Camille')
+            return selected ? "#bf3220" : "#fdd4d8"
+        else
+            return selected ? "#d9ae14" : "#f6fbdb"
+    }
 
     color: 'black'
+
+    Text {
+        id: teamLabel
+        opacity: selected ? 1.0 : 0.5
+        text: team
+        font.family: "HooliganJF"
+        font.pixelSize: height * 0.5
+        anchors { left: root.left; right: ten.left }
+        height: scoreHeight * 0.5
+        verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
+        color: getTextColor()
+    }
+
 
     Letter {
         id: unit
@@ -21,6 +43,7 @@ Rectangle {
     }
 
     Letter {
+        id: ten
         width: Math.round(height * 0.5)
         height: scoreHeight
         anchors.top: parent.top
@@ -38,12 +61,12 @@ Rectangle {
 
         width: parent.width
         height: parent.height
-        spacing: 20
-        padding: 10
+        spacing: 0.15 * parent.width / 3
+        padding: 0.05 * parent.width
 
         Item {
             id:cake
-            width: row.availableWidth * 0.42
+            width: row.availableWidth * 0.475
             height: row.availableHeight * 0.95
 
             Repeater {
@@ -64,7 +87,7 @@ Rectangle {
 
         Item {
             id: champagne
-            width: row.availableWidth * 0.28
+            width: row.availableWidth * 0.29
             height: row.availableHeight * 0.95
 
             Repeater {
@@ -86,7 +109,7 @@ Rectangle {
 
         Item {
             id: glasses
-            width: row.availableWidth * 0.2
+            width: row.availableWidth * 0.19
             height: row.availableHeight * 0.95
 
             Repeater {

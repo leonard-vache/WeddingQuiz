@@ -14,17 +14,17 @@ Item {
 
     function reset() {
         restoring = true
-        presentations.reset()
+
+        for(var i = 0; i < root.children.length; ++i ) {
+            if(root.children[i].reset !== undefined)
+                root.children[i].reset()
+        }
+
         restoring = false
     }
 
     Repeater {
         id: presentations
-        function reset() {
-            for(var i = 0; i < root.children.length; ++i ) {
-                root.children[i].reset()
-            }
-        }
 
         model: ["intro", "camille", "romain", "margaux", "diane", "nina", "delphine", "leo_charles"]
         delegate: Item {
@@ -33,6 +33,7 @@ Item {
 
             Audio {
                 id: audio
+                objectName: "Audio"
                 source: "resources/jingle_" + modelData + ".mp3"
                 loops: 1
                 onStopped: {

@@ -13,7 +13,7 @@ Window {
     height: 1080
     title: qsTr("Wedding Quiz")
     // Full screen
-    flags: Qt.Window | Qt.FramelessWindowHint
+    //flags: Qt.Window | Qt.FramelessWindowHint
 
     Item {
         anchors.fill: parent

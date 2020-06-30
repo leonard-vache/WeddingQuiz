@@ -18,6 +18,7 @@ class Team: public QObject
     Q_OBJECT
     Q_PROPERTY(QString name READ name NOTIFY nameChanged);
     Q_PROPERTY(int score READ score NOTIFY scoreChanged);
+    Q_PROPERTY(bool selected READ selected NOTIFY selectedChanged);
 
 public:
     explicit Team(QObject *parent = nullptr);
@@ -34,15 +35,20 @@ public:
     Common::KeyEvents getKey() const { return m_key; }
     void setKey(Common::KeyEvents key) { m_key = key; }
 
+    bool selected() const { return m_selected; }
+    void setSelected(bool select) { m_selected = select; emit selectedChanged(); }
+
 private:
     QString m_name;
     Common::KeyEvents m_key;
     int m_score;
+    bool m_selected;
 
 
 signals:
     void nameChanged();
     void scoreChanged();
+    void selectedChanged();
 
 };
 
@@ -75,7 +81,7 @@ public:
     void setState(Common::ScoreState state) { m_state = state; unselectTeam(); }
 
     void selectTeam(Common::KeyEvents key);
-    void unselectTeam() { m_currentTeamIndex = -1; }
+    void unselectTeam();
     bool isTeamSelected() { return m_currentTeamIndex != -1; }
     void increaseCurrentTeamScore(int delta);
 

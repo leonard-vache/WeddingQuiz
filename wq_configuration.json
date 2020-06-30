@@ -12,11 +12,11 @@
 		"teams": [
 			{
 			"name": "Romain",
-			"key": "next"
+			"key": "return"
 			},
 			{
 			"name": "Camille",
-			"key": "return"
+			"key": "next"
 			}
 		]
 	},
@@ -39,8 +39,8 @@
 			{
 				"team": "Romain",
 				"heading": "Camille a fait subir à son frère:",	
-				"suggestions": ["Envoyé une peluche courgette pour l’empêcher de ronfler",
-								"Fait une coupe au bol avec des ciseaux",
+				"suggestions": ["Un jet de peluche courgette pour l’empêcher de ronfler",
+								"Une coupe au bol avec des ciseaux",
 								"Empêcher de jouer avec ses barbies",
 								"déguisé en femme"],
 				"answer": 2

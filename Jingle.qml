@@ -376,6 +376,10 @@ Rectangle {
 
     Audio {
         id: quizAudio
+
+        property bool loading: true
+
+        autoLoad : true
         source: "resources/jingle_quiz.mp3"
         loops: 1
 
@@ -384,7 +388,28 @@ Rectangle {
             seek(0)
         }
 
-        onStopped: if(restoring == false) instrum.play()
+        onStopped: if(restoring == false && startQuizArrivalAnimation == true) instrum.play()
+
+        // Afin que l'audio soit synchro avec l'annimation on la joue une premiere fois
+        // pour que le media soit bufferize et ainsi evite une latence
+        onStatusChanged: {
+
+            if(loading == true)
+            {
+                if(status == Audio.Loaded)
+                {
+                    volume = 0.0 // Coupe le son pendant la phase de chargement
+                    play()
+                }
+
+                if(status == Audio.EndOfMedia)
+                {
+                    reset()
+                    volume = 1.0
+                    loading = false
+                }
+            }
+        }
 
     } // end of Audio (id: quizAudio)
 

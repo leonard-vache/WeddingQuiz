@@ -124,37 +124,43 @@ void PageController::updateScore()
     if(m_keyEvent == E_KEY_ENTER)
     {
         // reset score
-        m_pScore->setState(E_STATE_DISPLAY);
+//        m_pScore->setState(E_STATE_DISPLAY);
         // go back to question
         changePage(E_PAGE_QUESTION);
+        return;
     }
 
-    if( E_STATE_EDIT == m_pScore->getState() )
+//    if( E_STATE_EDIT == m_pScore->getState() )
+//    {
+    if(m_keyEvent == E_KEY_EDIT)
     {
-        if(m_keyEvent == E_KEY_EDIT)
-            m_pScore->setState(E_STATE_DISPLAY);
-
-        if(m_pScore->isTeamSelected() == false)
-        {
-            if(m_keyEvent == E_KEY_NEXT or m_keyEvent == E_KEY_RETURN)
-                m_pScore->selectTeam(m_keyEvent);
-        }
-        else
-        {
-            // (De/In)crease depending on question reward
-            int reward = m_pQuestion->getCurrentReward();
-            if(m_keyEvent == E_KEY_NEXT)
-                m_pScore->increaseCurrentTeamScore(+reward);
-            else if(m_keyEvent == E_KEY_RETURN)
-                m_pScore->increaseCurrentTeamScore(-reward);
-        }
-
+        m_pScore->unselectTeam();
+        return;
     }
-    else if ( E_STATE_DISPLAY == m_pScore->getState())
+//            m_pScore->setState(E_STATE_DISPLAY);
+
+    if(m_pScore->isTeamSelected() == false)
     {
-        if(m_keyEvent == E_KEY_EDIT)
-            m_pScore->setState(E_STATE_EDIT);
+        qInfo() << "No Team Selected" << m_keyEvent << E_KEY_NEXT <<E_KEY_RETURN << (m_keyEvent == E_KEY_NEXT || m_keyEvent == E_KEY_RETURN);
+        if(m_keyEvent == E_KEY_NEXT || m_keyEvent == E_KEY_RETURN)
+            m_pScore->selectTeam(m_keyEvent);
     }
+    else
+    {
+        // (De/In)crease depending on question reward
+        int reward = m_pQuestion->getCurrentReward();
+        if(m_keyEvent == E_KEY_NEXT)
+            m_pScore->increaseCurrentTeamScore(+reward);
+        else if(m_keyEvent == E_KEY_RETURN)
+            m_pScore->increaseCurrentTeamScore(-reward);
+    }
+
+//    }
+//    else if ( E_STATE_DISPLAY == m_pScore->getState())
+//    {
+//        if(m_keyEvent == E_KEY_EDIT)
+//            m_pScore->setState(E_STATE_EDIT);
+//    }
 }
 
 
