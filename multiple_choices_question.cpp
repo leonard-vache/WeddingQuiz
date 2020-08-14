@@ -15,7 +15,6 @@ MultipleChoicesQuestion::MultipleChoicesQuestion(const MultipleChoicesQuestion &
 {
     m_heading = copy.m_heading;
     m_content = copy.m_content;
-    m_team = copy.m_team;
     m_answer = copy.m_answer;
     m_suggestions = copy.m_suggestions;
     m_suggestionIndex = copy.m_suggestionIndex;
@@ -26,7 +25,6 @@ MultipleChoicesQuestion& MultipleChoicesQuestion::operator=(const MultipleChoice
 {
     m_heading = copy.m_heading;
     m_content = copy.m_content;
-    m_team = copy.m_team;
     m_answer = copy.m_answer;
     m_suggestions = copy.m_suggestions;
     m_suggestionIndex = copy.m_suggestionIndex;
@@ -42,8 +40,6 @@ void MultipleChoicesQuestion::readConfiguration(const QJsonObject &json)
     if(json.contains("answer"))
         setAnswer(json["answer"].toInt());
 
-    if(json.contains("team"))
-        setTeam(json["team"].toString());
 
     if(json.contains("suggestions") && json["suggestions"].isArray())
     {

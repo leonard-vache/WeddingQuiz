@@ -13,12 +13,22 @@ Window {
     height: 1080
     title: qsTr("Wedding Quiz")
     // Full screen
-    //flags: Qt.Window | Qt.FramelessWindowHint
+    flags: Qt.Window | Qt.FramelessWindowHint
+    //flags: Qt.Window
 
     Item {
         anchors.fill: parent
         focus:true
         Keys.onPressed: remote.keyChanged(event.key)
+
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.AllButtons
+            onClicked:
+            {
+                 remote.keyChanged(mouse.button)
+            }
+        }
     }
 
 

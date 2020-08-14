@@ -18,10 +18,8 @@ ContentPage::ContentPage(const ContentPage &copy)
 }
 
 
-void ContentPage::readConfiguration(const QJsonObject &json) {
-
-    qInfo() << json;
-
+void ContentPage::readConfiguration(const QJsonObject &json)
+{
     if( json.contains("AutoPause") && json["AutoPause"].isObject())
     {
         QJsonObject j_pauses = json["AutoPause"].toObject();
@@ -37,7 +35,6 @@ void ContentPage::readConfiguration(const QJsonObject &json) {
 
     }
 }
-
 
 
 void ContentPage::clear()

@@ -76,10 +76,6 @@ public:
 
     void readConfiguration(const QJsonObject &json);
 
-    // Accessors
-    Common::ScoreState getState() const { return m_state; }
-    void setState(Common::ScoreState state) { m_state = state; unselectTeam(); }
-
     void selectTeam(Common::KeyEvents key);
     void unselectTeam();
     bool isTeamSelected() { return m_currentTeamIndex != -1; }
@@ -103,8 +99,6 @@ private:
 
 
 private:
-    Common::ScoreState m_state;
-
     int m_currentTeamIndex;
     QVector<Team> m_teams;
 

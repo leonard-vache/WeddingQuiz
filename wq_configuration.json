@@ -1,108 +1,195 @@
-
-
 {
-	"RemoteController": {
-		"next": 16777239,
-		"return": 16777238,
-		"enter": 58,
-		"edit": [16777268, 16777216]
-	},
-	
-	"ScorePage": {
-		"teams": [
-			{
-			"name": "Romain",
-			"key": "return"
-			},
-			{
-			"name": "Camille",
-			"key": "next"
-			}
-		]
-	},
-
-	"QuestionsPage": {
-	
-		"MultipleChoicesQuestions": {
-			"reward": 2,
-			"QuestionsList": [
-			{
-				"team": "Romain",
-				"heading": "A 3 ans, Camille avait déjà:",
-				"suggestions": ["Mangé les poussières d’un paillasson",
-								"Redécoré les murs du salon en dessinant dessus",
-								"Essayé de faire rebondir un oeuf cru sur le frigo",
-								"Obtenu son diplôme d'orthophoniste"],
-				"answer": 1
-			},
-			
-			{
-				"team": "Romain",
-				"heading": "Camille a fait subir à son frère:",	
-				"suggestions": ["Un jet de peluche courgette pour l’empêcher de ronfler",
-								"Une coupe au bol avec des ciseaux",
-								"Empêcher de jouer avec ses barbies",
-								"déguisé en femme"],
-				"answer": 2
-				
-			},
-			
-			{
-				"team": "Romain",
-				"heading": "Camille n'a jamais:",	
-				"suggestions": ["Craché son petit filou au visage de sa belle-mère en rigolant à table",
-								"Mis de la mousse à raser dans les chaussons de son père ",
-								"Déguisé le chat en bébé et baladé en landeau",
-								"********"],
-				"answer": 2
-			},
-			
-			{
-				"team": "Romain",
-				"heading": "Que vient-il ensuite ?",
-				"suggestions": ["@@@@@@@@@@@@",
-								"&&&&&&&&&&&&",
-								"############",
-								"********"],
-				"answer": 4,
-				"content": "C:/Users/vache/Videos/Captures/jingleWQ.mp4"
-			}
-			]
-		},
-		
-		"QuickQuestions": {
-			"title": "Se marrer, Se marier, ou les deux ?",
-			"reward": 3,
-			"QuestionsList":  [
-			{
-				"heading": "A deux c'est mieux"
-			},
-			
-			{
-				"heading": "N'arrive qu'une seule fois dans la vie"
-			},
-			
-			{
-				"heading": "Peut faire mal au ventre"
-			},
-			
-			{
-				"heading": "Il y en a qui en sont mort"
-			}
-			
-			]
-		}
-	},
-	
-	
-	"Contents": {
-		"AutoPause": {
-			"C:/Users/vache/Videos/Captures/jingleWQ.mp4": 8000
-		}
-	},
-	
-	"Transitions": {
-		"MultipleChoicesQuestions": "resources/transition_marrer_marier.png",
-		"QuickQuestions": "resources/transition_piece_montee_de_la_mort.png"
-	}
+    "RemoteController":{
+        "next":[16777239,16],
+        "return":[16777238,8],
+        "enter":[58,1],
+        "edit":[
+            16777268,
+            16777216,
+			2]
+},
+    "ScorePage":{
+        "teams":[
+            {
+                "name":"Romain",
+                "key":"next"
+            
+},
+            {
+                "name":"Camille",
+                "key":"return"
+            
+}
+        
+]
+    
+},
+    "QuestionsPage":{
+        "MultipleChoicesQuestions":{
+            "reward":2,
+            "QuestionsList":[
+                {
+                    "heading":"A 3 ans, Camille a:",
+                    "suggestions":[
+                        "Mangé les poussières d’un paillasson",
+                        "Redécoré les murs du salon en dessinant dessus",
+                        "Essayé de faire rebondir un oeuf cru sur le frigo",
+                        "Obtenu son diplôme d'orthophoniste"
+                    
+],
+                    "answer":1,
+					"content": "file:///C:/Users/vache/Documents/GitHub/WeddingQuiz/resources/romainpoilu.jpg"
+                
+},
+                {
+                    "heading":"Combien de poils Romain possède-t-il sur son corps ? Barbe et cheveux compris",
+                    "suggestions":[
+                        "7.5 millions, ce qui serait probable vu sa pilosité",
+                        "5 millions, on a compté",
+                        "1, celui qu'il a dans la main",
+                        "4"
+                    
+],
+                    "answer":2,
+					"content": "C:/Users/vache/Documents/GitHub/WeddingQuiz/resources/VideoBabou.mp4"
+                
+},
+                {
+                    "heading":" Qu'est ce que Camille n'a jamais fait à son frère ?",
+                    "suggestions":[
+                        "Un jet de peluche courgette pour l’empêcher de ronfler",
+                        "Une coupe au bol avec des ciseaux",
+                        "L'empêcher de jouer avec ses barbies",
+                        "Le déguiser en femme"
+                    
+],
+                    "answer":2
+                
+},
+                {
+                    "heading":"Avec quelle personne Romain s'est-il ouvert le crâne lors d'une escapade à roller à La Bastide-du-Vert ?",
+                    "suggestions":[
+                        "Axel, ils ont fait les 400 coups ensemble donc pourquoi pas",
+                        "Alexis, il habite à côté ça serait logique",
+                        "Benoit, la légende raconte qu'il se serait évanoui à la vue du sang",
+                        "Tout seul comme une grosse MERDE"
+                    
+],
+                    "answer":3
+                
+},
+                {
+                    "heading":"Camille a déjà:",
+                    "suggestions":[
+                        "Craché son petit filou au visage de sa belle-mère en rigolant à table",
+                        "Mis de la mousse à raser dans les chaussons de son père ",
+                        "Déguisé le chat en bébé pour le balader dans un landeau",
+                        "Conduit un tracteur"
+                    
+],
+                    "answer": 3
+                
+},
+                {
+                    "heading":"D'après Véronique Simon, qui est son enfant préféré ?",
+                    "suggestions":[
+                        "Delphine, médecin, mariée, 2 gamins, une candidate sérieuse",
+                        "Diane, remplie d'amour et d'attention, pourquoi pas ",
+                        "Charles, un branleur sans emploi, peu de chance",
+                        "Romain, parce que ... Romain"
+                    
+],
+                    "answer":4
+                
+},
+                {
+                    "heading":"Qu'est ce que Camille déteste le plus ?",
+                    "suggestions":[
+                        "Les pieds, c'est de notoriété commune",
+                        "Les araignées, comme tout le monde",
+                        "Mettre de la crême solaire, à Plomelin, pas besoin",
+                        "Faire ses bilans ortho"
+                    
+],
+                    "answer":2
+                
+},
+                {
+                    "heading":"Avec quel organisme Romain est parti faire de l'humanitaire au Maroc en 2012 ?",
+                    "suggestions":[
+                        "La Guilde",
+                        "Les Compagnons",
+                        "La Troupe",
+                        "La Communauté de l'Anneau"
+                    
+],
+                    "answer":1
+                
+}
+            
+]
+        
+},
+        "QuickQuestions":{
+            "title":"Se marrer, Se marier, ou les deux ?",
+            "reward":3,
+            "QuestionsList":[
+                {
+                    "heading":"A deux c'est mieux"
+                
+},
+                {
+                    "heading":"Peut faire mal au ventre"
+                
+},
+                {
+                    "heading":"C'est gratuit"
+                
+},
+                {
+                    "heading":"Il y en a qui en sont mort"
+                
+},
+                {
+                    "heading":"Peut être forcé"
+                
+},
+                {
+                    "heading":"Se passe aujourd'hui"
+                
+},
+                {
+                    "heading":"Il faut être bien habillé"
+                
+},
+                {
+                    "heading":"N'arrive qu'une seule fois dans la vie"
+                
+},
+                {
+                    "heading":"Équivaut à un bon steak"
+                
+},
+                {
+                    "heading":"Peut se faire à plusieurs"
+                
+}
+            
+]
+        
+}
+    
+},
+    "Contents":{
+        "AutoPause":{
+            "C:/Users/vache/Videos/Captures/jingleWQ.mp4":8000
+        
+}
+    
+},
+    "Transitions":{
+        "MultipleChoicesQuestions":"resources/transition_marrer_marier.png",
+        "QuickQuestions":"resources/transition_piece_montee_de_la_mort.png"
+    
+}
 }

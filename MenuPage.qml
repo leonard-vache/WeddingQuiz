@@ -11,6 +11,8 @@ Item {
 
     height: childrenRect.height
 
+    property int buttonsTotalWidth: score.width + content.width
+
 
     Rectangle {
         id: score

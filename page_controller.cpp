@@ -123,21 +123,18 @@ void PageController::updateScore()
 {
     if(m_keyEvent == E_KEY_ENTER)
     {
-        // reset score
-//        m_pScore->setState(E_STATE_DISPLAY);
+        // reset
+        m_pScore->unselectTeam();
         // go back to question
         changePage(E_PAGE_QUESTION);
         return;
     }
 
-//    if( E_STATE_EDIT == m_pScore->getState() )
-//    {
     if(m_keyEvent == E_KEY_EDIT)
     {
         m_pScore->unselectTeam();
         return;
     }
-//            m_pScore->setState(E_STATE_DISPLAY);
 
     if(m_pScore->isTeamSelected() == false)
     {
@@ -154,13 +151,6 @@ void PageController::updateScore()
         else if(m_keyEvent == E_KEY_RETURN)
             m_pScore->increaseCurrentTeamScore(-reward);
     }
-
-//    }
-//    else if ( E_STATE_DISPLAY == m_pScore->getState())
-//    {
-//        if(m_keyEvent == E_KEY_EDIT)
-//            m_pScore->setState(E_STATE_EDIT);
-//    }
 }
 
 

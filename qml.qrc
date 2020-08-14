@@ -7,47 +7,13 @@
         <file>MultipleChoicesQuestionItem.qml</file>
         <file>Score.qml</file>
         <file>PageController.qml</file>
-        <file>jingleWQ.mp4</file>
         <file>wq_configuration.json</file>
         <file>ScorePage.qml</file>
         <file>QuestionsPage.qml</file>
         <file>QuickQuestionItem.qml</file>
         <file>MenuPage.qml</file>
         <file>ContentPage.qml</file>
-        <file>resources/jingle_cake_sprite_834x962.png</file>
-        <file>resources/HooliganJF.ttf</file>
-        <file>resources/Horsal.ttf</file>
-        <file>resources/jingle_cake_sprite_834x962_7_frames.png</file>
-        <file>resources/score_clean_1.png</file>
-        <file>resources/score_clean_2.png</file>
-        <file>resources/score_clean_3.png</file>
-        <file>resources/score_clean_4.png</file>
-        <file>resources/score_clean_5.png</file>
-        <file>resources/score_clean_6.png</file>
-        <file>resources/score_clean_7.png</file>
-        <file>resources/score_clean_8.png</file>
-        <file>resources/score_clean_9.png</file>
-        <file>resources/score_clean_10.png</file>
-        <file>resources/score_clean_11.png</file>
-        <file>resources/score_clean_12.png</file>
-        <file>resources/score_clean_13.png</file>
-        <file>resources/score_clean_14.png</file>
-        <file>resources/score_clean_15.png</file>
-        <file>resources/score_clean_16.png</file>
-        <file>resources/score_clean_17.png</file>
-        <file>resources/jingle_instrum.mp3</file>
-        <file>resources/jingle_camille.mp3</file>
-        <file>resources/jingle_delphine.mp3</file>
-        <file>resources/jingle_diane.mp3</file>
-        <file>resources/jingle_intro.mp3</file>
-        <file>resources/jingle_leo_charles.mp3</file>
-        <file>resources/jingle_margaux.mp3</file>
-        <file>resources/jingle_nina.mp3</file>
-        <file>resources/jingle_quiz.mp3</file>
-        <file>resources/jingle_romain.mp3</file>
         <file>JingleAudioPresentations.qml</file>
-        <file>resources/transition_piece_montee_de_la_mort.png</file>
-        <file>resources/transition_marrer_marier.png</file>
         <file>TransitionPage.qml</file>
     </qresource>
 </RCC>

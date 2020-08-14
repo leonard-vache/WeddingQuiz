@@ -5,8 +5,6 @@
 #include <QObject>
 
 
-
-
 namespace Common
 {
     Q_NAMESPACE         // required for meta object creation
@@ -39,12 +37,6 @@ namespace Common
         E_PAGE_CONTENT,
         E_PAGE_TRANSITION
     };
-
-    enum ScoreState {
-        E_STATE_DISPLAY,
-        E_STATE_EDIT
-    };
-
 
     enum ContentState {
         E_STOP,

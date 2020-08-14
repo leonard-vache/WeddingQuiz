@@ -33,6 +33,7 @@ Item {
         id: questions
         visible: questionsPage.showed
         anchors.fill: parent
+//        titleAvailableWidth: root.width - 100 //menu.buttonsTotalWidth
     }
 
     ContentPage {
@@ -57,6 +58,6 @@ Item {
         id: transition
         visible: transitionPage.showed
         anchors.fill: parent
-        source: transitionPage.imageSource
+        source: transitionPage.imageSource !== "" ? "file:///C:/Users/vache/Documents/GitHub/WeddingQuiz/" +  transitionPage.imageSource : ""
     }
 }

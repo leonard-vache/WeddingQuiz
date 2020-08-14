@@ -2,8 +2,10 @@ import QtQuick 2.15
 import QtMultimedia 5.15
 import WeddingQuiz 1.0
 
-Item {
+Rectangle {
     id: root
+
+    color:"black"
 
     property string source: ""
     property bool running: false

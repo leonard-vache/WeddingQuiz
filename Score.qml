@@ -75,7 +75,7 @@ Rectangle {
                 Image {
                     anchors.bottom: parent.bottom
                     opacity:  modelData < value ? 1.0 : 0.3
-                    source: "resources/score_clean_" + modelData.toFixed() + ".png"
+                    source: "file:///C:/Users/vache/Documents/GitHub/WeddingQuiz/resources/score_clean_" + modelData.toFixed() + ".png"
                     fillMode: Image.PreserveAspectFit
                     width: cake.width
                 }
@@ -97,7 +97,7 @@ Rectangle {
                     anchors.bottom: parent.bottom
 
                     opacity:  modelData <= value ? 1.0 : 0.3
-                    source: "resources/score_clean_" + modelData.toFixed() + ".png"
+                    source: "file:///C:/Users/vache/Documents/GitHub/WeddingQuiz/resources/score_clean_" + modelData.toFixed() + ".png"
                     fillMode: Image.PreserveAspectFit
                     width: champagne.width
                 }
@@ -118,7 +118,7 @@ Rectangle {
                 Image {
                     anchors.bottom: parent.bottom
                     opacity:  modelData < value ? 1.0 : 0.3
-                    source: "resources/score_clean_" + modelData.toFixed() + ".png"
+                    source: "file:///C:/Users/vache/Documents/GitHub/WeddingQuiz/resources/score_clean_" + modelData.toFixed() + ".png"
                     fillMode: Image.PreserveAspectFit
                     width: glasses.width
                 }

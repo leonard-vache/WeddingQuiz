@@ -36,7 +36,7 @@ Team& Team::operator=(const Team &copy)
 
 
 ScorePage::ScorePage(QObject *parent) : PageInterface(parent),
-    m_state(E_STATE_DISPLAY), m_currentTeamIndex(-1)
+   m_currentTeamIndex(-1)
 {
 }
 

@@ -10,6 +10,7 @@ Item {
     property int answer: 0
     property int reward: 0
     property string content: "" 
+    property int headingAvailableWidth: root.width
 
     property real suggestionIndex: -1
     property bool showResponse: false
@@ -29,14 +30,26 @@ Item {
     Text {
         id: header
         padding: 10
-        anchors.horizontalCenter: container.horizontalCenter
-        width: container.width
+        x: 180
+//        anchors.horizontalCenter: container.horizontalCenter
+        width: root.width - 420
         text: "Is this a Question ?"
         verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.WordWrap
         font.family: fontName
-        font.pixelSize: fontSize * 1.2
+        font.pixelSize: fontSize * 1
+
+//        onWidthChanged: print(headingAvailableWidth)
+
     }
+
+//    Rectangle {
+//        anchors.fill: header
+//        border.color:"red"
+//        color: "transparent"
+//        border.width:1
+//    }
+
 
     Item {
         id: answersArea

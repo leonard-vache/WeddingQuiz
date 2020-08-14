@@ -43,10 +43,13 @@ Rectangle {
         quizLettersVisible = false
         running = false
         // Reset Letters
-        weddingLetters.reset()
-        quizLetters.reset()
+        for(var i = 0; i < root.children.length; ++i ) {
+            var child = root.children[i]
+            if(child.reset !== undefined)
+                child.reset()
+        }
+
         instrum.reset()
-        audioPresentations.reset()
 
         restoring = false
     }
@@ -55,6 +58,8 @@ Rectangle {
         root.running = true
         root.children[0].start()
         weddingLettersVisible = true
+//        print("launch")
+//        audioPresentations.start()
     }
 
 
@@ -62,14 +67,6 @@ Rectangle {
         id: weddingLetters
         property int offsetX: Math.round(0.5 * (root.width - weddingLetters.count * letterWidth))
         property int offsetY: Math.round(0.5 * (root.height - 2 * letterHeight - root.spacing))
-
-        function reset() {
-            weddingLettersBorder.visible = false
-            for(var i = 0; i < count; ++i ) {
-                var letter = root.children[wLetterIndex + i]
-                letter.reset()
-            }
-        }
 
         model:["w","e","d","d","i","n","g"]
 
@@ -86,6 +83,7 @@ Rectangle {
           function start() {
                 anim.start()
                 sprite.reset()
+                sound.play()
             }
 
             width: letterWidth
@@ -100,6 +98,7 @@ Rectangle {
 
                 function reset() {
                     anim.stop()
+                    sound.reset()
                     wl.y= yOutOfWindow
                     wl.yScale = 1.0
                     wl.xScale = 1.0
@@ -133,6 +132,17 @@ Rectangle {
                 } // end of AnimatedLetter (id: anim)
 
                 //////////////////////////////////////////////////////////////////////////////////////
+                Audio {
+                    id: sound
+                    source: "file:///C:/Users/vache/Documents/GitHub/WeddingQuiz/resources/jingle_"+ modelData+".mp3"
+                    loops: 1
+                    function reset() {
+                        stop()
+                        seek(0)
+                    }
+                }
+
+                //////////////////////////////////////////////////////////////////////////////////////
                 Connections {
                     target: root
                     function onStartFinalAnimationChanged() {
@@ -154,24 +164,28 @@ Rectangle {
             AnimatedSprite {
                 id: sprite
 
+                property real letterBottomOffset: letterHeight * 0.1
+                property bool yCollision: wl.y + letterHeight >= y + letterBottomOffset
+                onYCollisionChanged: if(yCollision === true) restart()
+
                 function reset() {
-                    visible = Qt.binding(function() { return  wl.y + letterHeight >= y + letterBottomOffset} )
+                    visible = true
+                    yCollision = Qt.binding(function() { return  wl.y + letterHeight >= y + letterBottomOffset} )
                     stop()
                     currentFrame = 0
                     loops = loops + 1
                 }
 
-                property real letterBottomOffset: letterHeight * 0.1
                 // 1st: binded on y position / 2nd set when final animation starts
-                visible: wl.y + letterHeight >= y + letterBottomOffset
-                onVisibleChanged: if(visible === true) restart()
+                visible: true // wl.y + letterHeight >= y + letterBottomOffset
+//                onVisibleChanged: if(visible === true) restart()
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: letterBottomOffset
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: letterWidth * 0.75
                 height: width * frameHeight/frameWidth // Keep aspect ratio
 
-                source: "resources/jingle_cake_sprite_834x962_7_frames.png"
+                source: "file:///C:/Users/vache/Documents/GitHub/WeddingQuiz/resources/jingle_cake_sprite_834x962_7_frames.png"
                 // On a seulement 6 frames mais cela evite un glitch a la fin de l'animation (comme si la 1er frame était rechargee)
                 // La 7e frames est transparente ou identique a la 6e
                 frameCount: 7
@@ -187,6 +201,8 @@ Rectangle {
 
             } // end of AnimatedSprite (id: sprite)
 
+            Component.onCompleted: sprite.reset()
+
         } // end of Item (id: wl)
 
     } // end of Repeater
@@ -194,6 +210,9 @@ Rectangle {
 
     Rectangle {
         id: weddingLettersBorder
+
+        function reset() { visible = false }
+
         visible: false
         color: "transparent"
         x: Math.round((root.width - quizFinalLetterScale * letterHeight * 2) * 0.5) - weddingFinalLetterScale * letterHeight - border.width
@@ -212,15 +231,6 @@ Rectangle {
 
         property int offsetX: Math.round(0.5 * (root.width - quizLetters.count * letterWidth))
         property int offsetY: weddingLetters.offsetY + letterHeight + root.spacing
-
-
-        function reset() {
-            quizAudio.reset()
-            for(var i = 0; i < count; ++i ) {
-                var letter = root.children[qLetterIndex + i]
-                letter.reset()
-            }
-        }
 
         model:["q","u","i","z"]
 
@@ -242,6 +252,7 @@ Rectangle {
             visible: quizLettersVisible
             x: quizLetters.offsetX + letterWidth * index
             y: quizLetters.offsetY
+
             yScaleOrigin: height
             text: modelData
             letterColor: index % 2 == 0 ? "#fdd4d8" : "#f6fbdb" // rouge:ff9090
@@ -380,7 +391,7 @@ Rectangle {
         property bool loading: true
 
         autoLoad : true
-        source: "resources/jingle_quiz.mp3"
+        source: "file:///C:/Users/vache/Documents/GitHub/WeddingQuiz/resources/jingle_quiz.mp3"
         loops: 1
 
         function reset() {
@@ -391,9 +402,9 @@ Rectangle {
         onStopped: if(restoring == false && startQuizArrivalAnimation == true) instrum.play()
 
         // Afin que l'audio soit synchro avec l'annimation on la joue une premiere fois
-        // pour que le media soit bufferize et ainsi evite une latence
-        onStatusChanged: {
-
+        // pour que le media soit bufferize et ainsi eviter une latence
+        onStatusChanged:
+        {
             if(loading == true)
             {
                 if(status == Audio.Loaded)
@@ -409,25 +420,27 @@ Rectangle {
                     loading = false
                 }
             }
-        }
+
+        } // end of onStatusChanged
 
     } // end of Audio (id: quizAudio)
 
 
     Audio {
         id: instrum
-        source: "resources/jingle_instrum.mp3"
+        source: "file:///C:/Users/vache/Documents/GitHub/WeddingQuiz/resources/jingle_instrum.mp3"
         loops: Audio.Infinite
 
         function reset() {
             stop()
             seek(0)
         }
-        volume: QtMultimedia.convertVolume(0.5,
+        volume: QtMultimedia.convertVolume(0.4,
                                            QtMultimedia.LogarithmicVolumeScale,
                                            QtMultimedia.LinearVolumeScale)
 
     } // end of Audio (id:instrum)
+
 
     JingleAudioPresentations {
         id: audioPresentations

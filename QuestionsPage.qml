@@ -12,7 +12,7 @@ Item {
     property QuickQuestionObject qqModel: questionsPage.qq
 
     property string currentContent: questionsPage.currentQuestion === Common.E_MULTIPLE_CHOICE_QUESTION ? mcqModel.content : qqModel.content
-
+    property int headingAvailableWidth: root.width - 40
 
 
     MultipleChoicesQuestionItem {
@@ -27,6 +27,7 @@ Item {
 
         showResponse: mcqModel.showAnswer
         suggestionIndex: mcqModel.suggestionIndex
+        headingAvailableWidth: headingAvailableWidth
     }
 
     QuickQuestionItem {
@@ -34,9 +35,9 @@ Item {
         visible: questionsPage.currentQuestion === Common.E_QUICK_QUESTION
         anchors.fill: parent
 
-        heading:  qqModel.heading
-        title: qqModel.title
-
+        heading:  qqModel !== null ? qqModel.heading : ""
+        title: qqModel !== null ? qqModel.title : ""
+        headingAvailableWidth: headingAvailableWidth
     }
 
 }
